@@ -1,10 +1,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: head}">
-  <meta http-equiv="Content-Type" content="text/html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/style.css">
-  <title>Tools</title>
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 
 
@@ -34,6 +31,8 @@
     <tbody id="tools-container"></tbody>
   </table>
 </div>
+<article class="functions">
+<th:block class="admin-block">
 <div class="button-holder d-flex justify-content-center">
   <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS</button>
 </div>
@@ -49,8 +48,8 @@
 <div class="button-holder d-flex justify-content-center">
   <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW OBJECT</button>
 </div>
-
-
+</th:block>
+</article>
 <div>
   <footer></footer>
 </div>

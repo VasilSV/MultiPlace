@@ -31,10 +31,10 @@ public class SecurityConfig {
 
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity
+        return httpSecurity
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests.
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/users/login", "/users/register", "/users/login-error").permitAll()
+                        .requestMatchers("/","/users/login","users/register","/users/login-error").permitAll()
                         .requestMatchers("/pages/admins").hasRole(UserRoleEnum.ADMIN.name())
                         .requestMatchers("/pages/company").hasRole(UserRoleEnum.COMPANY.name())
                         .anyRequest().authenticated())
@@ -47,32 +47,19 @@ public class SecurityConfig {
                             .failureForwardUrl("/users/login-error");
                 })
                 .logout(logout -> {
-                    try {
-                        logout
-                                .logoutUrl("/users/logout")
-                                .logoutSuccessUrl("/")
-                                .invalidateHttpSession(true)
-                                .deleteCookies("JSESSIONID");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    logout
+                            .logoutUrl("/users/logout")
+                            .logoutSuccessUrl("/")
+                            .invalidateHttpSession(true);
 
                 }).rememberMe(rememberMe -> {
-                    try {
-                        rememberMe
-                                .key("VigilInAWildernessOfMirrors")
-                                .tokenValiditySeconds(36000)
-                                .userDetailsService(new AppUserDetailsService(userRepository));
-
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-
-
-        ;
-        return httpSecurity.build();
+                    rememberMe
+                            .key("VigilInAWildernessOfMirrors")
+                            .tokenValiditySeconds(5)
+                            .userDetailsService(new AppUserDetailsService(userRepository));
+                }).build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

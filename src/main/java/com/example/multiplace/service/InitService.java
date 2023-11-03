@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
+
 import static com.example.multiplace.model.enums.UserRoleEnum.*;
 
 @Service
@@ -41,11 +43,12 @@ public class InitService {
 
     private void initRoles() {
         if (userRoleRepository.count() == 0) {
-            var companyRole = new UserRoleEntity().setRole(COMPANY);
             var adminRole = new UserRoleEntity().setRole(ADMIN);
+            var companyRole = new UserRoleEntity().setRole(COMPANY);
 
-            userRoleRepository.save(companyRole);
             userRoleRepository.save(adminRole);
+            userRoleRepository.save(companyRole);
+
         }
     }
 
@@ -79,7 +82,7 @@ public class InitService {
                 .setEmail("company@abv.bg")
                 .setIdentificationNumber("BG12345")
                 .setPassword(passwordEncoder.encode("qqq"))
-                .setRoles(userRoleRepository.findAll());
+                .setRoles(List.of(companyRole));
         userRepository.save(companyUser);
 
     }
