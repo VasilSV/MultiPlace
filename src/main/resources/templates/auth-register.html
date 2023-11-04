@@ -1,4 +1,4 @@
-<html lang="en"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/head :: head}"></head>
@@ -18,24 +18,30 @@
   <form
           th:action="@{/users/register}"
           th:method="post"
+          th:object="${userRegistrationDTO}"
 
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
     <div class="row">
       <div class="form-group col-md-6 mb-3">
         <label for="username" class="text-white font-weight-bold"> Name</label>
         <input
+                class="form-control"
                 id="username"
                 name="username"
                 type="text"
-                class="form-control"
-                placeholder="Name"/>
+                th:field="*{username}" th:errorclass="bg-danger"/>
+        <small th:if="${#fields.hasErrors('username')}"
+               th:errors="*{username}"  class="text-danger">Username error message</small>
       </div>
       <div class="form-group col-md-6 mb-3">
         <label for="identificationNumber" class="text-white font-weight-bold">EGN/BULSTAT</label>
         <input id="identificationNumber"
                name="identificationNumber"
                type="text" min="2" max="20" class="form-control"
-               placeholder="Identification Number"/>
+               placeholder="Identification Number"
+               th:field="*{identificationNumber}" th:errorclass="bg-danger"/>
+        <small class="text-danger" th:if="${#fields.hasErrors('identificationNumber')}"
+               th:errors="*{identificationNumber}"> error </small>
       </div>
 
     </div>
@@ -45,21 +51,30 @@
         <input id="email"
                name="email"
                type="text" min="2" max="20" class="form-control"
-               placeholder="Email"/>
+               placeholder="Email"
+               th:field="*{email}" th:errorclass="bg-danger"/>
+        <small th:if="${#fields.hasErrors('email')}"
+               th:errors="*{email}" class="text-danger">Email error message</small>
       </div>
       <div class="form-group col-md-6 mb-3">
         <label for="password" class="text-white font-weight-bold">Password</label>
         <input id="password"
                name="password"
                type="password" min="2" max="20" class="form-control"
-               placeholder="Password"/>
+               placeholder="Password"
+               th:field="*{password}" th:errorclass="bg-danger"/>
+        <small class="text-danger" th:if="${#fields.hasErrors('password')}"
+               th:errors="*{password}">Password error message</small>
       </div>
       <div class="form-group col-md-6 mb-3">
         <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
         <input id="confirmPassword"
                name="confirmPassword"
                type="confirmPassword" min="2" max="20" class="form-control"
-               placeholder="ConfirmPassword"/>
+               placeholder="ConfirmPassword"
+               th:field="*{confirmPassword}" th:errorclass="bg-danger"/>
+        <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}"
+               th:errors="*{confirmPassword}">Password error message</small>
         <p class="invalid-feedback errors alert alert-danger">
           Confirmation password is required.
         </p>
