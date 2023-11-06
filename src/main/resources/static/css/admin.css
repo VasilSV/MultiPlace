@@ -1,0 +1,8 @@
+body{
+    display: flex;
+}
+.admin-block{display:flex}
+.functions{display-outside: ruby-base-container}
+.col-md-6{display: inline-block;
+    margin-bottom: 50%;
+}
