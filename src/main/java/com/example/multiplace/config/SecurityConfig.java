@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
@@ -23,7 +24,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig  {
 
 
     private final UserRepository userRepository;
@@ -34,13 +35,14 @@ public class SecurityConfig {
 
 
 
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
-                                           SecurityContextRepository securityContextRepository) throws Exception {
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests.
+
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/users/login", "users/register", "/users/login-error").permitAll()
+                        .requestMatchers("/", "/home", "/users/login", "users/register", "/users/login-error")
+                        .permitAll()
                         .requestMatchers("/pages/admins").hasRole(UserRoleEnum.ADMIN.name())
                         .requestMatchers("/pages/company").hasRole(UserRoleEnum.COMPANY.name())
                         .anyRequest().authenticated())
@@ -49,7 +51,7 @@ public class SecurityConfig {
                             .loginPage("/users/login")
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/")
+                            .defaultSuccessUrl("/", true)
                             .failureForwardUrl("/users/login-error");
                 })
                 .logout(logout -> {
@@ -60,12 +62,10 @@ public class SecurityConfig {
 
                 }).rememberMe(rememberMe -> {
                     rememberMe
-                            .key("VigilInAWildernessOfMirrors")
+                            .key("baubau")
                             .tokenValiditySeconds(5)
                             .userDetailsService(new AppUserDetailsService(userRepository));
-                }).securityContext()
-                .securityContextRepository(securityContextRepository);
-
+                });
         return httpSecurity.build();
     }
 
