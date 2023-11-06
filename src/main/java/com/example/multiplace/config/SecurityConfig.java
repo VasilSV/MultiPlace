@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,10 +19,12 @@ import org.springframework.security.web.context.DelegatingSecurityContextReposit
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+
 
     private final UserRepository userRepository;
 
@@ -29,12 +33,14 @@ public class SecurityConfig {
     }
 
 
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
-        return httpSecurity
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
+                                           SecurityContextRepository securityContextRepository) throws Exception {
+
+        httpSecurity
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests.
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/","/users/login","users/register","/users/login-error").permitAll()
+                        .requestMatchers("/", "/users/login", "users/register", "/users/login-error").permitAll()
                         .requestMatchers("/pages/admins").hasRole(UserRoleEnum.ADMIN.name())
                         .requestMatchers("/pages/company").hasRole(UserRoleEnum.COMPANY.name())
                         .anyRequest().authenticated())
@@ -57,10 +63,29 @@ public class SecurityConfig {
                             .key("VigilInAWildernessOfMirrors")
                             .tokenValiditySeconds(5)
                             .userDetailsService(new AppUserDetailsService(userRepository));
-                }).build();
+                }).securityContext()
+                .securityContextRepository(securityContextRepository);
+
+        return httpSecurity.build();
     }
 
 
+    //    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests()
+//                .requestMatchers("/public/**").permitAll()
+//                .requestMatchers("/private/**").authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/")
+//                .and()
+//                .csrf().disable();
+//    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

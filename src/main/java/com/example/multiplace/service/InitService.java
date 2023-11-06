@@ -2,7 +2,6 @@ package com.example.multiplace.service;
 
 import com.example.multiplace.model.entity.UserEntity;
 import com.example.multiplace.model.entity.UserRoleEntity;
-import com.example.multiplace.model.enums.UserRoleEnum;
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.repository.UserRoleRepository;
 import jakarta.annotation.PostConstruct;

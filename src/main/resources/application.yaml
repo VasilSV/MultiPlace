@@ -1,6 +1,7 @@
 
-
 spring:
+  application:
+    name: multiPlace
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/multiPlace?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8"
@@ -34,3 +35,5 @@ logging:
 app:
   default:
     password: qqq
+
+binding-result-package: org.springframework.validation.BindingResult
