@@ -22,9 +22,8 @@ import org.springframework.security.web.context.RequestAttributeSecurityContextR
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
-@EnableWebSecurity
 @Configuration
-public class SecurityConfig  {
+public class SecurityConfig {
 
 
     private final UserRepository userRepository;
@@ -33,7 +32,7 @@ public class SecurityConfig  {
         this.userRepository = userRepository;
     }
 
-
+    @Bean
 
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -41,7 +40,7 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests.
 
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/home", "/users/login", "users/register", "/users/login-error")
+                        .requestMatchers("/", "/users/login", "users/register", "/users/login-error")
                         .permitAll()
                         .requestMatchers("/pages/admins").hasRole(UserRoleEnum.ADMIN.name())
                         .requestMatchers("/pages/company").hasRole(UserRoleEnum.COMPANY.name())
@@ -51,7 +50,7 @@ public class SecurityConfig  {
                             .loginPage("/users/login")
                             .usernameParameter("email")
                             .passwordParameter("password")
-                            .defaultSuccessUrl("/", true)
+                            .defaultSuccessUrl("/")
                             .failureForwardUrl("/users/login-error");
                 })
                 .logout(logout -> {

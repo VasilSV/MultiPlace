@@ -28,7 +28,30 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "username")
+    private List<ToolEntity> toolsList;
+    @OneToMany(mappedBy = "customer")
+    private List< OrdersEntity> ordersEntityList;
+
     public UserEntity() {
+    }
+
+    public List<OrdersEntity> getOrdersEntityList() {
+        return ordersEntityList;
+    }
+
+    public UserEntity setOrdersEntityList(List<OrdersEntity> ordersEntityList) {
+        this.ordersEntityList = ordersEntityList;
+        return this;
+    }
+
+    public List<ToolEntity> getToolsList() {
+        return toolsList;
+    }
+
+    public UserEntity setToolsList(List<ToolEntity> toolsList) {
+        this.toolsList = toolsList;
+        return this;
     }
 
     public Long getId() {
@@ -98,6 +121,8 @@ public class UserEntity {
                 ", email='" + email + '\'' +
                 ", password='" + (password != null ? "[PROVIDED]" : "[N/A]") + '\'' +
                 ", roles=" + roles +
+                ", toolsList=" + toolsList +
                 '}';
     }
+
 }

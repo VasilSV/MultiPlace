@@ -1,7 +1,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: head}">
-  <link rel="stylesheet" href="/css/admin.css">
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}"/>-->
 </head>
 
 
@@ -9,49 +9,48 @@
 <!--<script type="text/javascript" src="/static/js/fetchApp.js" ></script -->
 
 <div th:replace="~{fragments/navbar :: navbar}">
-  Navbar
+    Navbar
 </div>
+<div class="admin-div">
+    <div class="container">
+        <h2 class="text-center text-white">Admin page</h2>
+    </div>
+    <div class="col-md-666 ">
+        <img class="center" width="20%" src="/images/admin.jpg" alt="Admin image">
+    </div>
 
-<div class="container">
-  <h2 class="text-center text-white">Admin page</h2>
-</div>
-<div class="col-md-6 ">
-  <img class="center" width="40%" src="/images/admin.jpg" alt="Admin image">
-</div>
 
-<div class="button-holder d-flex justify-content-center">
-  <button id="loadTools" type="submit" class="btn btn-warning
-  mb-3" value="Register">UPDATE</button>
-  <table>
-    <thead>
-    <tr>
-      <th>typeCool</th>
-    </tr>
-    </thead>
-    <tbody id="tools-container"></tbody>
-  </table>
+    <article class="functions">
+        <th:block class="admin-block">
+            <div class="container">
+                <h2 class="text-center text-white">CUSTOMERS DETAILS</h2>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">UPDATE CUSTOMER DETAILS</button>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS</button>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW CUSTOMER</button>
+            </div>
+            <div class="container">
+                <h2 class="text-center text-white">PRODUCT DETAILS</h2>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE PRODUCT</button>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW OBJECT</button>
+            </div>
+        </th:block>
+    </article>
 </div>
-<article class="functions">
-<th:block class="admin-block">
-<div class="button-holder d-flex justify-content-center">
-  <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS</button>
-</div>
-<div class="button-holder d-flex justify-content-center">
-  <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW CUSTOMER</button>
-</div>
-<div class="button-holder d-flex justify-content-center">
-  <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE PRODUCT</button>
-</div>
-<div class="button-holder d-flex justify-content-center">
-  <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>
-</div>
-<div class="button-holder d-flex justify-content-center">
-  <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW OBJECT</button>
-</div>
-</th:block>
-</article>
 <div>
-  <footer></footer>
+    <footer></footer>
 </div>
 </body>
 </html>

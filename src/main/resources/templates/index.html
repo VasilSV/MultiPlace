@@ -12,19 +12,21 @@
 
 <div class="container">
   <h2 class="text-center text-white">Welcome to home page
-<!--    <th:block sec:authorize="isAuthenticated()">-->
-<!--      <th:block sec:authentication="name"></th:block>-->
-<!--    </th:block>-->
-<!--    <th:block sec:authorize="!isAuthenticated()">-->
-<!--      Anonymous!-->
-<!--    </th:block>-->
+    <th:block sec:authorize="isAuthenticated()">
+      <th:block sec:authentication="name"></th:block>
+    </th:block>
+    <th:block sec:authorize="!isAuthenticated()">
+      <div class="col-md-6 ">
+        <img class="rounded" width="210%" src="/images/gradinaProlet.jpg" alt="Tools image">
+      </div>
+    </th:block>
   </h2>
-  <h3>
-    <a class="text-primary" th:href="@{/login}">Login</a>
-    if you have an account or
-    <a class="text-primary" th:href="@{/register}">Register</a>
-    now and check our deals.
-  </h3>
+<!--  <h3>-->
+<!--    <a class="text-primary" th:href="@{/login}">Login</a>-->
+<!--    if you have an account or-->
+<!--    <a class="text-primary" th:href="@{/register}">Register</a>-->
+<!--    now and check our deals.-->
+<!--  </h3>-->
 
 </div>
 <div>

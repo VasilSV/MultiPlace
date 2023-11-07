@@ -1,8 +1,9 @@
 body{
     display: flex;
+    flex-direction: column;
+    background-color: #1e7e34;
 }
-.admin-block{display:flex}
-.functions{display-outside: ruby-base-container}
-.col-md-6{display: inline-block;
-    margin-bottom: 50%;
+.admin-div  {
+
+
 }

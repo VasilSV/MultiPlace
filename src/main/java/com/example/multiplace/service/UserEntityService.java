@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Consumer;
+
 @Service
 public class UserEntityService {
     private final UserDetailsService userDetailsService;
@@ -27,44 +29,45 @@ public class UserEntityService {
         this.passwordEncoder = passwordEncoder;
     }
 
-//    public void registerUser(UserRegistrationDTO registrationDTO) {
-//
-//        UserEntity userEntity = new UserEntity().
-//                setUsername(registrationDTO.getUsername()).
-//                setIdentificationNumber(registrationDTO.getIdentificationNumber()).
-//                setEmail(registrationDTO.getEmail()).
-//                setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
-//
-//        userRepository.save(userEntity);
-//
-//        UserDetails userDetails = userDetailsService.loadUserByUsername(registrationDTO.getEmail());
-//
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(
-//                userDetails,
-//                userDetails.getPassword(),
-//                userDetails.getAuthorities()
-//        );
-//
-//        successfulLoginProcessor.accept(authentication);
-//    }
+    public void registerUser(UserRegistrationDTO registrationDTO,
+                             Consumer<Authentication> successfulLoginProcessor) {
 
+        UserEntity userEntity = new UserEntity().
+                setUsername(registrationDTO.getUsername()).
+                setIdentificationNumber(registrationDTO.getIdentificationNumber()).
+                setEmail(registrationDTO.getEmail()).
+                setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
+        userRepository.save(userEntity);
 
-    public void registerUser(
-            UserRegistrationDTO userRegistrationDTO) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(registrationDTO.getEmail());
 
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
 
-        userRepository.save(map(userRegistrationDTO));
-
-    }
-
-    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
-        return new UserEntity()
-             //   .setActive(true)
-                .setUsername(userRegistrationDTO.getUsername())
-                .setIdentificationNumber(userRegistrationDTO.getIdentificationNumber())
-                .setEmail(userRegistrationDTO.getEmail())
-                .setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
+        successfulLoginProcessor.accept(authentication);
     }
 }
+
+
+//    public void registerUser(
+//            UserRegistrationDTO userRegistrationDTO) {
+//
+//
+//        userRepository.save(map(userRegistrationDTO));
+//
+//    }
+//
+//    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
+//        return new UserEntity()
+//             //   .setActive(true)
+//                .setUsername(userRegistrationDTO.getUsername())
+//                .setIdentificationNumber(userRegistrationDTO.getIdentificationNumber())
+//                .setEmail(userRegistrationDTO.getEmail())
+//                .setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
+//    }
+//}
 
