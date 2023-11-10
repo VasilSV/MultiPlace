@@ -17,6 +17,9 @@ public class UserDTO {
 
     private UserRoleEntityDTO role;
 
+    public UserDTO() {
+    }
+
     public Long getId() {
         return id;
     }

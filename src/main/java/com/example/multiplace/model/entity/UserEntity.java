@@ -1,5 +1,6 @@
 package com.example.multiplace.model.entity;
 
+import com.example.multiplace.model.enums.UserTypeEntity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserTypeEntity userTypeEntity;
     @Column(nullable = false, unique = true)
     private String identificationNumber;
 
@@ -31,9 +35,18 @@ public class UserEntity {
     @OneToMany(mappedBy = "username")
     private List<ToolEntity> toolsList;
     @OneToMany(mappedBy = "customer")
-    private List< OrdersEntity> ordersEntityList;
+    private List<OrdersEntity> ordersEntityList;
 
     public UserEntity() {
+    }
+
+    public UserTypeEntity getUserTypeEntity() {
+        return userTypeEntity;
+    }
+
+    public UserEntity setUserTypeEntity(UserTypeEntity userTypeEntity) {
+        this.userTypeEntity = userTypeEntity;
+        return this;
     }
 
     public List<OrdersEntity> getOrdersEntityList() {
@@ -107,6 +120,7 @@ public class UserEntity {
         this.roles = roles;
         return this;
     }
+
     public UserEntity addRole(UserRoleEntity role) {
         this.roles.add(role);
         return this;

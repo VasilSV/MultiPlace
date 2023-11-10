@@ -4,6 +4,8 @@ import com.example.multiplace.dtos.UserDTO;
 import com.example.multiplace.dtos.UserRegistrationDTO;
 import com.example.multiplace.dtos.UserRoleEntityDTO;
 import com.example.multiplace.model.entity.UserEntity;
+import com.example.multiplace.model.entity.UserRoleEntity;
+import com.example.multiplace.model.enums.UserTypeEntity;
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.repository.UserRoleRepository;
 import org.modelmapper.ModelMapper;
@@ -14,9 +16,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import static com.example.multiplace.model.enums.UserRoleEnum.COMPANY;
+import static com.example.multiplace.model.enums.UserTypeEntity.BULSTAT;
 
 @Service
 public class UserEntityService {
@@ -41,10 +48,23 @@ public class UserEntityService {
 
         UserEntity userEntity = new UserEntity().
                 setUsername(registrationDTO.getUsername()).
+                setUserTypeEntity(registrationDTO.getUserTypeEntity()).
                 setIdentificationNumber(registrationDTO.getIdentificationNumber()).
                 setEmail(registrationDTO.getEmail()).
                 setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
+//        if (userEntity.getUserTypeEntity().equals(UserTypeEntity.BULSTAT)){
+//            userEntity.setRoles(COMPANY);
+//        }
+//        Optional<UserTypeEntity> userEntityOptional = Optional.ofNullable(registrationDTO.getUserTypeEntity());
+
+//        if (userEntityOptional.get().name().equals(BULSTAT)) {
+        if (registrationDTO.getUserTypeEntity().equals(BULSTAT)) {
+            userEntity.
+                    setRoles(Collections.singletonList(userRoleRepository.
+                            findUserRoleEntityByRole(COMPANY).orElseThrow()));
+
+        }
         userRepository.save(userEntity);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(registrationDTO.getEmail());
@@ -57,6 +77,7 @@ public class UserEntityService {
 
         successfulLoginProcessor.accept(authentication);
     }
+
     public List<UserDTO> getAllUsers() {
         return
                 userRepository.findAll().stream()
@@ -64,7 +85,8 @@ public class UserEntityService {
                         .collect(Collectors.toList());
 
     }
-    private static UserDTO mapUserDTO (UserEntity userEntity){
+
+    private static UserDTO mapUserDTO(UserEntity userEntity) {
         UserRoleEntityDTO userRoleEntityDTO = new UserRoleEntityDTO()
                 .setRole(userEntity.getRoles().toString());
         return new UserDTO()
@@ -73,6 +95,15 @@ public class UserEntityService {
                 .setUsername(userEntity.getUsername())
                 .setIdentificationNumber(userEntity.getIdentificationNumber())
                 .setRole(userRoleEntityDTO);
+    }
+
+    public Optional<UserDTO> findUserById(Long id) {
+        return userRepository.findById(id)
+                .map(UserEntityService::mapUserDTO);
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }
 

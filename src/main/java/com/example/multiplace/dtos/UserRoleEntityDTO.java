@@ -4,6 +4,9 @@ public class UserRoleEntityDTO {
 
     private String role;
 
+    public UserRoleEntityDTO() {
+    }
+
     public String getRole() {
         return role;
     }

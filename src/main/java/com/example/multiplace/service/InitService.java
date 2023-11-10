@@ -1,7 +1,10 @@
 package com.example.multiplace.service;
 
+import com.example.multiplace.model.entity.ToolEntity;
+import com.example.multiplace.repository.ToolEntityRepository;
 import com.example.multiplace.model.entity.UserEntity;
 import com.example.multiplace.model.entity.UserRoleEntity;
+import com.example.multiplace.model.enums.UserTypeEntity;
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.repository.UserRoleRepository;
 import jakarta.annotation.PostConstruct;
@@ -10,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.example.multiplace.model.enums.UserRoleEnum.*;
@@ -21,21 +25,25 @@ public class InitService {
     private UserRoleRepository userRoleRepository;
 
     private PasswordEncoder passwordEncoder;
+    private final ToolEntityRepository toolEntityRepository;
 
     public InitService(UserRepository userRepository,
                        UserRoleRepository userRoleRepository,
                        PasswordEncoder passwordEncoder,
-                       @Value("${app.default.password}") String defaultPassword) {
+                       @Value("${app.default.password}") String defaultPassword,
+                       ToolEntityRepository toolEntityRepository) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
 
+        this.toolEntityRepository = toolEntityRepository;
     }
 
     @PostConstruct
     public void init() {
         initRoles();
         initUsers();
+        initTools();
 
 
     }
@@ -48,6 +56,11 @@ public class InitService {
             userRoleRepository.save(adminRole);
             userRoleRepository.save(companyRole);
 
+        }
+    }
+    private void initTools(){
+        if (toolEntityRepository.count()==0){
+            initTool();
         }
     }
 
@@ -66,6 +79,7 @@ public class InitService {
         UserEntity adminUser = new UserEntity()
                 .setUsername("Admin")
                 .setEmail("aladin@abv.bg")
+                .setUserTypeEntity(UserTypeEntity.BULSTAT)
                 .setIdentificationNumber("12345")
                 .setPassword(passwordEncoder.encode("qqq"))
                 .setRoles(this.userRoleRepository.findAll());
@@ -79,6 +93,7 @@ public class InitService {
         UserEntity companyUser = new UserEntity()
                 .setUsername("Company")
                 .setEmail("company@abv.bg")
+                .setUserTypeEntity(UserTypeEntity.BULSTAT)
                 .setIdentificationNumber("BG12345")
                 .setPassword(passwordEncoder.encode("qqq"))
                 .setRoles(List.of(companyRole));
@@ -91,6 +106,7 @@ public class InitService {
         UserEntity normalUser = new UserEntity()
                 .setUsername("User")
                 .setEmail("user@abv.bg")
+                .setUserTypeEntity(UserTypeEntity.EGN)
                 .setIdentificationNumber("7805214420")
                 .setPassword(passwordEncoder.encode("qqq"));
 
@@ -99,4 +115,14 @@ public class InitService {
 
     }
 
+    private void initTool(){
+        ToolEntity toolEntity= new ToolEntity()
+                .setToolName("COSER")
+                .setDescription("fowjfwoew")
+                .setPrice(BigDecimal.ONE)
+                ;
+        toolEntityRepository.save(toolEntity);
+
+
+    }
 }

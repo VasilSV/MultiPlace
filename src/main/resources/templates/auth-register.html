@@ -7,91 +7,101 @@
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}">
-  Navbar
+    Navbar
 </div>
 <div class="col-md-6 ">
-  <img class="rounded" width="210%" src="/images/register.jpg" alt="Tools image">
+    <img class="rounded" width="210%" src="/images/register.jpg" alt="Tools image">
 </div>
 
 <div class="container">
-  <h2 class="text-center text-white">Register User</h2>
-  <form
-          th:action="@{/users/register}"
-          th:method="post"
-          th:object="${userRegistrationDTO}"
+    <h2 class="text-center text-white">Register User</h2>
+    <form
+            th:action="@{/users/register}"
+            th:method="post"
+            th:object="${userRegistrationDTO}"
 
-          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-    <div class="row">
-      <div class="form-group col-md-6 mb-3">
-        <label for="username" class="text-white font-weight-bold"> Name</label>
-        <input
-                class="form-control"
-                id="username"
-                name="username"
-                type="text"
-                th:field="*{username}" th:errorclass="bg-danger"/>
-        <small th:if="${#fields.hasErrors('username')}"
-               th:errors="*{username}"  class="text-danger">Username error message</small>
-      </div>
-      <div class="form-group col-md-6 mb-3">
-        <label for="identificationNumber" class="text-white font-weight-bold">EGN/BULSTAT</label>
-        <input id="identificationNumber"
-               name="identificationNumber"
-               type="text" min="2" max="20" class="form-control"
-               placeholder="Identification Number"
-               th:field="*{identificationNumber}" th:errorclass="bg-danger"/>
-        <small class="text-danger" th:if="${#fields.hasErrors('identificationNumber')}"
-               th:errors="*{identificationNumber}"> error </small>
-      </div>
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="username" class="text-white font-weight-bold"> Name</label>
+                <input
+                        class="form-control"
+                        id="username"
+                        name="username"
+                        type="text"
+                        th:field="*{username}" th:errorclass="bg-danger"/>
+                <small th:if="${#fields.hasErrors('username')}"
+                       th:errors="*{username}" class="text-danger">Username error message</small>
+            </div>
 
-    </div>
-    <div class="row">
-      <div class="form-group col-md-6 mb-3">
-        <label for="email" class="text-white font-weight-bold">Email</label>
-        <input id="email"
-               name="email"
-               type="text" min="2" max="20" class="form-control"
-               placeholder="Email"
-               th:field="*{email}" th:errorclass="bg-danger"/>
-        <small th:if="${#fields.hasErrors('email')}"
-               th:errors="*{email}" class="text-danger">Email error message</small>
-      </div>
-      <div class="form-group col-md-6 mb-3">
-        <label for="password" class="text-white font-weight-bold">Password</label>
-        <input id="password"
-               name="password"
-               type="password" min="2" max="20" class="form-control"
-               placeholder="Password"
-               th:field="*{password}" th:errorclass="bg-danger"/>
-        <small class="text-danger" th:if="${#fields.hasErrors('password')}"
-               th:errors="*{password}">Password error message</small>
-      </div>
-      <div class="form-group col-md-6 mb-3">
-        <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
-        <input id="confirmPassword"
-               name="confirmPassword"
-               type="confirmPassword" min="2" max="20" class="form-control"
-               placeholder="ConfirmPassword"
-               th:field="*{confirmPassword}" th:errorclass="bg-danger"/>
-        <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}"
-               th:errors="*{confirmPassword}">Password error message</small>
-        <p class="invalid-feedback errors alert alert-danger">
-          Confirmation password is required.
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col col-md-4">
-        <div class="button-holder d-flex">
-          <input type="submit" class="btn btn-info btn-lg" value="Create account"/>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="identificationNumber" class="text-white font-weight-bold">EGN/BULSTAT</label>
+                <input id="identificationNumber"
+                       name="identificationNumber"
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="Identification Number"
+                       th:field="*{identificationNumber}" th:errorclass="bg-danger"/>
+                <small class="text-danger" th:if="${#fields.hasErrors('identificationNumber')}"
+                       th:errors="*{identificationNumber}"> error </small>
+            </div>
+
         </div>
-      </div>
-    </div>
-  </form>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="email" class="text-white font-weight-bold">Email</label>
+                <input id="email"
+                       name="email"
+                       type="text" min="2" max="20" class="form-control"
+                       placeholder="Email"
+                       th:field="*{email}" th:errorclass="bg-danger"/>
+                <small th:if="${#fields.hasErrors('email')}"
+                       th:errors="*{email}" class="text-danger">Email error message</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="password" class="text-white font-weight-bold">Password</label>
+                <input id="password"
+                       name="password"
+                       type="password" min="2" max="20" class="form-control"
+                       placeholder="Password"
+                       th:field="*{password}" th:errorclass="bg-danger"/>
+                <small class="text-danger" th:if="${#fields.hasErrors('password')}"
+                       th:errors="*{password}">Password error message</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
+                <input id="confirmPassword"
+                       name="confirmPassword"
+                       type="confirmPassword" min="2" max="20" class="form-control"
+                       placeholder="ConfirmPassword"
+                       th:field="*{confirmPassword}" th:errorclass="bg-danger"/>
+                <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}"
+                       th:errors="*{confirmPassword}">Password error message</small>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Confirmation password is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="userTypeEntity" class="text-white font-weight-bold">USER OR COMPANY</label>
+                <select class="userTypeEntity" name="userTypeEntity" id="userTypeEntity"
+                        th:field="*{userTypeEntity}" >
+                    <option value="EGN">EGN</option>
+                    <option value="BULSTAT">BULSTAT</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Create account"/>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div>
-  <footer> </footer>
+    <footer></footer>
 </div>
 
 </body>

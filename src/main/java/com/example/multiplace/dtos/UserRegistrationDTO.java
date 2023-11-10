@@ -1,5 +1,7 @@
 package com.example.multiplace.dtos;
 
+import com.example.multiplace.model.enums.UserRoleEnum;
+import com.example.multiplace.model.enums.UserTypeEntity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +19,8 @@ public class UserRegistrationDTO {
     private String username;
     @NotNull
     private String identificationNumber;
+    @NotNull
+    private UserTypeEntity userTypeEntity;
     @Email
     @NotBlank(message = "Email cannot be empty!")
     private String email;
@@ -27,6 +31,19 @@ public class UserRegistrationDTO {
     @NotNull
     private String confirmPassword;
 
+    private UserRoleEntityDTO role;
+
+    public UserRegistrationDTO() {
+    }
+
+    public UserTypeEntity getUserTypeEntity() {
+        return userTypeEntity;
+    }
+
+    public UserRegistrationDTO setUserTypeEntity(UserTypeEntity userTypeEntity) {
+        this.userTypeEntity = userTypeEntity;
+        return this;
+    }
 
     public String getUsername() {
         return username;
@@ -34,6 +51,15 @@ public class UserRegistrationDTO {
 
     public UserRegistrationDTO setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    public UserRoleEntityDTO getRole(UserRoleEnum company) {
+        return role;
+    }
+
+    public UserRegistrationDTO setRole(UserRoleEntityDTO role) {
+        this.role = role;
         return this;
     }
 
