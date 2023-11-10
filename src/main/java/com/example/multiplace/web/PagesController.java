@@ -55,6 +55,18 @@ public class PagesController {
     public String profiles() {
         return "profile";
     }
+    @GetMapping("/pages/coser")
+    public String coser(){return "coser";}
+    @GetMapping("/pages/helmet")
+    public String helmet(){return "helmet";}
+    @GetMapping("/pages/hammer")
+    public String hammer(){return "hammer";}
+    @GetMapping("/pages/shovel")
+    public String shovel(){return "shovel";}
+    @GetMapping("/pages/gloves")
+    public String gloves(){return "gloves";}
+    @GetMapping("/pages/magnetic-hammer")
+    public String magneticHammer(){return "magnetic-hammer";}
 
     @PostMapping("/users/profile")
     public String profile( Model model) {
