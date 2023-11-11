@@ -62,7 +62,7 @@ public class SecurityConfig {
                 }).rememberMe(rememberMe -> {
                     rememberMe
                             .key("baubau")
-                            .tokenValiditySeconds(5)
+                            .tokenValiditySeconds(5555)
                             .userDetailsService(new AppUserDetailsService(userRepository));
                 });
         return httpSecurity.build();

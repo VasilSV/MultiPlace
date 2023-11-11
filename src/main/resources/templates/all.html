@@ -9,9 +9,11 @@
 <div th:replace="~{fragments/navbar :: navbar}">
     Navbar
 </div>
+
 <div class="container">
     <h2 class="text-center text-white">A page for all customers</h2>
 </div>
+<div  th:replace="~{fragments/top :: top}"  ></div>
 <div class="col-md-6 ">
     <img class="rounded"  width="200%" src="/images/prolet.jpg" alt="Welcome image">
 </div>
@@ -24,9 +26,6 @@
                 <div class="mt-3 rounded badge-info">
                     <img class="mr-2" src="/images/shovel.jpg" alt="Shovel" width="50px" height="50px">
                     <span>Name: Shovel Price: 8 lv</span>
-                </div>
-                <div class="text-white label-holder d-flex justify-content-center">
-                    <label for="productName" class="h4 mb-2">OrdersEntity</label>
                 </div>
                 <select class="browser-default custom-select" id="productName" name="productName">
                     <option value="">Избери количество</option>
@@ -168,7 +167,7 @@
         <a href="/orders/by/all" class="btn btn-danger" th:text="|Buy all products for ${totalOrders} lv|"></a>
     </div>
 </main>
-<footer></footer>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
 </body>
 </html>

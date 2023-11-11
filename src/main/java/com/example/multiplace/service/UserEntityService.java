@@ -53,12 +53,7 @@ public class UserEntityService {
                 setEmail(registrationDTO.getEmail()).
                 setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
 
-//        if (userEntity.getUserTypeEntity().equals(UserTypeEntity.BULSTAT)){
-//            userEntity.setRoles(COMPANY);
-//        }
-//        Optional<UserTypeEntity> userEntityOptional = Optional.ofNullable(registrationDTO.getUserTypeEntity());
 
-//        if (userEntityOptional.get().name().equals(BULSTAT)) {
         if (registrationDTO.getUserTypeEntity().equals(BULSTAT)) {
             userEntity.
                     setRoles(Collections.singletonList(userRoleRepository.

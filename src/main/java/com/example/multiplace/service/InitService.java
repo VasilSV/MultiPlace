@@ -58,8 +58,9 @@ public class InitService {
 
         }
     }
-    private void initTools(){
-        if (toolEntityRepository.count()==0){
+
+    private void initTools() {
+        if (toolEntityRepository.count() == 0) {
             initTool();
         }
     }
@@ -115,13 +116,34 @@ public class InitService {
 
     }
 
-    private void initTool(){
-        ToolEntity toolEntity= new ToolEntity()
-                .setToolName("COSER")
-                .setDescription("fowjfwoew")
-                .setPrice(BigDecimal.ONE)
-                ;
-        toolEntityRepository.save(toolEntity);
+    private void initTool() {
+        ToolEntity toolCoser = new ToolEntity()
+                .setToolName("Coser")
+                .setDescription("Градински трион и ножица за високи клони – КОСЕР")
+                .setPrice(BigDecimal.ONE);
+        ToolEntity toolHammer = new ToolEntity()
+                .setToolName("Hammer")
+                .setDescription("Чук кози крак – извит, 200 гр. – ЧУК")
+                .setPrice(BigDecimal.ONE);
+        ToolEntity toolMagneticHammer = new ToolEntity()
+                .setToolName("Magnetic Hammer")
+                .setDescription("Чук магнитен, тип кози крак 570 гр. – ЧУК МАГНИТЕН")
+                .setPrice(BigDecimal.ONE);
+        ToolEntity toolHelmet = new ToolEntity()
+                .setToolName("Helmet")
+                .setDescription("Строителна каска синя, електроустойчива – КАСКА")
+                .setPrice(BigDecimal.ONE);
+        ToolEntity toolGloves = new ToolEntity()
+                .setToolName("Gloves")
+                .setDescription("Работни ръкавици – полиестерни, нитрилни - РЪКАВИЦИ")
+                .setPrice(BigDecimal.ONE);
+        ToolEntity toolShovel = new ToolEntity()
+                .setToolName("Shovel")
+                .setDescription("Дълга заоблена лопата със заострен връх – ЛОПАТА")
+                .setPrice(BigDecimal.ONE);
+
+        toolEntityRepository.saveAll(List.of(toolGloves, toolCoser, toolHammer, toolHelmet
+                , toolMagneticHammer, toolShovel));
 
 
     }

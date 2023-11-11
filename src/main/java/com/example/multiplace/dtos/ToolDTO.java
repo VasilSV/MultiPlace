@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 public class ToolDTO {
 
-
+    private Long id;
     private String toolName;
 
     private String description;
@@ -14,6 +14,15 @@ public class ToolDTO {
 
 
     public ToolDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public ToolDTO setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getToolName() {

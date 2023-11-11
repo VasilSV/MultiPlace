@@ -3,6 +3,7 @@ package com.example.multiplace.web;
 import com.example.multiplace.model.entity.UserEntity;
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.service.AppUserDetailsService;
+import com.example.multiplace.service.InitService;
 import com.example.multiplace.view.UserProfileView;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PagesController {
     private final AppUserDetailsService appUserDetailsService;
     private final UserRepository userRepository;
+    private final InitService initService;
 
 
-    public PagesController(AppUserDetailsService appUserDetailsService, UserRepository userRepository) {
+    public PagesController(AppUserDetailsService appUserDetailsService, UserRepository userRepository, InitService initService) {
         this.appUserDetailsService = appUserDetailsService;
         this.userRepository = userRepository;
 
+        this.initService = initService;
     }
 
     @GetMapping("/")
