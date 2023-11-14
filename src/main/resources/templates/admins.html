@@ -19,47 +19,66 @@
         <img class="center" width="20%" src="/images/admin.jpg" alt="Admin image">
     </div>
 
-        <article class="functions">
-            <th:block class="admin-block">
-                <div class="container">
-                    <h2 class="text-center text-white">CUSTOMERS DETAILS</h2>
-                </div>
-                <form th:method="get"
-                      th:action="@{/api/users}"
-                      class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <article class="functions">
+        <th:block class="admin-block">
+            <div class="container">
+                <h2 class="text-center text-white">CUSTOMERS DETAILS</h2>
+            </div>
+            <form
+                    class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
                 <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3" value="Register">LIST OF CUSTOMERS</button>
+                    <button id="customerLoadList" type="button"
+                            class="btn btn-warning  mb-3" value="Register">LIST OF CUSTOMERS
+                    </button>
+                    <section>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>USERNAME</th>
+                                <th>ITN</th>
+                                <th>EMAIL</th>
+                                <th>OPERATION</th>
+                            </tr>
+                            </thead>
+                            <tbody id="user-container"></tbody>
+                        </table>
+                    </section>
                 </div>
-                    </form>
-                <form th:method="get"
-                      th:action="@{/api/users}"
-                      class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+
+            </form>
+            <form th:method="get"
+                  th:action="@{/api/users}"
+                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
                 <div class="button-holder d-flex justify-content-center">
                     <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS
                     </button>
+
                 </div>
-                    </form>
-                <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE CUSTOMER</button>
-                </div>
-                <div class="container">
-                    <h2 class="text-center text-white">PRODUCT DETAILS</h2>
-                </div>
-                <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE PRODUCT</button>
-                </div>
-                <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>
-                </div>
-                <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW PRODUCT</button>
-                </div>
-            </th:block>
-        </article>
+            </form>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE CUSTOMER</button>
+            </div>
+            <div class="container">
+                <h2 class="text-center text-white">PRODUCT DETAILS</h2>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE PRODUCT</button>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW PRODUCT</button>
+            </div>
+        </th:block>
+    </article>
 
 </div>
 <div>
     <footer></footer>
 </div>
+<script src="/js/UsersApp.js"></script>
+
 </body>
 </html>
