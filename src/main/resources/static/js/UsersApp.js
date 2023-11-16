@@ -7,6 +7,7 @@ function customerLoadList() {
     let userContainer = document.getElementById('user-container');
     userContainer.innerHTML = ''
 
+
     fetch('http://localhost:8080/api/users')
         .then(response => response.json())
         .then(json => json.forEach(user => {
@@ -47,10 +48,16 @@ function customerLoadList() {
     function deleteBtnClicked(event) {
 
         let userId = event.target.dataset.id;
-        let requestOptions = {
-            method: "DELETE"
-        }
+        // Вземане на CSRF токена от мета тага
+        let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
+        let requestOptions = {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken  // Поставяне на CSRF токена в хедъра
+            }
+        }
         fetch(`http://localhost:8080/api/users/${userId}`, requestOptions)
             .then(_ => customerLoadList())
             .catch(error => console.log('error', error))

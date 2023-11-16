@@ -10,4 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ToolEntityRepository extends JpaRepository<ToolEntity, Long> {
     Optional<ToolDTO> findToolEntitiesByToolName(String toolName);
+
+
+    Optional<ToolDTO> deleteToolEntityById(Long id);
 }

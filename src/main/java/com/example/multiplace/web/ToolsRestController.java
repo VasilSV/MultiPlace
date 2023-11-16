@@ -1,17 +1,14 @@
 package com.example.multiplace.web;
 
 import com.example.multiplace.dtos.ToolDTO;
-import com.example.multiplace.dtos.UserDTO;
 import com.example.multiplace.service.ToolEntityService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/tools")
 public class ToolsRestController {
@@ -31,9 +28,28 @@ public class ToolsRestController {
         Optional<ToolDTO> toolDTOOptional = toolEntityService.findById(id);
 
         return toolDTOOptional.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(  ResponseEntity.notFound().build());
 
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ToolDTO> deleteToolByID(@PathVariable("id") Long id) {
 
+        toolEntityService.deleteToolByID(id);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+    @PostMapping
+    public ResponseEntity<ToolDTO> createTool(
+            @RequestBody ToolDTO toolDTO,
+            UriComponentsBuilder uriComponentsBuilder) {
+
+        long newToolID = toolEntityService.createTool(toolDTO);
+
+        return ResponseEntity.created(
+                uriComponentsBuilder.path("/api/tools/{id}").build(newToolID)
+        ).build();
+    }
 }
 

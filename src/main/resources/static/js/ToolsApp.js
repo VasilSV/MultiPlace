@@ -2,7 +2,6 @@ let toolListButton = document.getElementById('toolLoadList');
 toolListButton.addEventListener('click', toolLoadList)
 
 
-
 function toolLoadList() {
 
     let toolContainer = document.getElementById('tool-container');
@@ -45,8 +44,15 @@ function toolLoadList() {
 
     function deleteBtnClicked(event) {
         let thisId = event.target.dataset.id;
+        let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+
         let requestOptions = {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken  // Поставяне на CSRF токена в хедъра
+            }
+
         }
 
         fetch(`http://localhost:8080/api/tools/${thisId}`, requestOptions)
