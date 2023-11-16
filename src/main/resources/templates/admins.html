@@ -2,6 +2,9 @@
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: head}">
     <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}"/>-->
+<!--    <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>-->
+<!--    <script src="https://unpkg.com/@popperjs/core@2"></script>-->
+<!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
 </head>
 
 
@@ -38,7 +41,7 @@
                                 <th>USERNAME</th>
                                 <th>ITN</th>
                                 <th>EMAIL</th>
-                                <th>OPERATION</th>
+                                <th> OPERATION</th>
                             </tr>
                             </thead>
                             <tbody id="user-container"></tbody>
@@ -57,20 +60,58 @@
                 </div>
             </form>
             <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE CUSTOMER</button>
+                <button type="submit" class="btn btn-warning  mb-3" value="DELETE">DELETE CUSTOMER</button>
             </div>
             <div class="container">
                 <h2 class="text-center text-white">PRODUCT DETAILS</h2>
             </div>
-            <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning  mb-3" value="Register">DELETE PRODUCT</button>
-            </div>
-            <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>
-            </div>
-            <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning  mb-3" value="Register">ADD NEW PRODUCT</button>
-            </div>
+            <form
+                    class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                <div class="button-holder d-flex justify-content-center">
+                    <button id="toolLoadList" type="button"
+                            class="btn btn-warning  mb-3" value="Register">LIST OF TOOLS
+                    </button>
+                    <section>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>TOOL</th>
+                                <th>DESCRIPTION</th>
+                                <th>PRICE</th>
+                                <th>OPERATION</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tool-container"></tbody>
+                        </table>
+                    </section>
+                </div>
+            </form>
+<!--            <div class="button-holder d-flex justify-content-center">-->
+<!--                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>-->
+<!--            </div>-->
+            <form id="toolAddForm"
+                    class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                <div id="tool-update-container" class="button-holder d-flex justify-content-center">
+                    <button id="toolAddList"
+                            type="submit" class="btn btn-warning mb-3"
+                            value="Register">ADD NEW TOOL</button>
+
+                    <!--                    <section id="tool-update-container">-->
+                        <div class="form-group">
+                            <label for="toolName">Tool Name:</label>
+                            <input type="text" class="form-control" id="toolName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="toolDescription">Description:</label>
+                            <input type="text" class="form-control" id="toolDescription" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="toolPrice">Price:</label>
+                            <input type="number" class="form-control" id="toolPrice" required>
+                        </div>
+<!--                    </section>-->
+                </div>
+            </form>
         </th:block>
     </article>
 
@@ -79,6 +120,7 @@
     <footer></footer>
 </div>
 <script src="/js/UsersApp.js"></script>
-
+<script src="/js/ToolsApp.js"></script>
+<script src="/js/AddNewTool.js"></script>
 </body>
 </html>

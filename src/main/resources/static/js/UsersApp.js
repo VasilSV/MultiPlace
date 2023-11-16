@@ -48,7 +48,7 @@ function customerLoadList() {
 
         let userId = event.target.dataset.id;
         let requestOptions = {
-            method: 'DELETE'
+            method: "DELETE"
         }
 
         fetch(`http://localhost:8080/api/users/${userId}`, requestOptions)
