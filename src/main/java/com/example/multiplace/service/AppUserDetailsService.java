@@ -3,6 +3,8 @@ package com.example.multiplace.service;
 import com.example.multiplace.model.entity.UserEntity;
 import com.example.multiplace.model.entity.UserRoleEntity;
 import com.example.multiplace.repository.UserRepository;
+
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -36,9 +38,11 @@ public class AppUserDetailsService implements UserDetailsService {
 
 
 
+
     private static GrantedAuthority map(UserRoleEntity userRoleEntity) {
         return new SimpleGrantedAuthority(
                 "ROLE_" + userRoleEntity.getRole().name());
 
     }
+
 }

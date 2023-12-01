@@ -1,5 +1,8 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments/head :: head}"></head>
 
@@ -27,12 +30,11 @@
                 <input
                         class="form-control"
                         id="username"
-                        name="username"
-                        type="text"
+                        type="text" th:required th:minlength="2" th:maxlength="20"
+                        placeholder="Username"
                         th:field="*{username}" th:errorclass="bg-danger"/>
-                <small th:if="${#fields.hasErrors('username')}"
-                       th:errors="*{username}" class="text-danger">Username error message</small>
-            </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('username')}"
+                       th:errors="*{username}"> error </small></div>
 
 
             <div class="form-group col-md-6 mb-3">
@@ -84,7 +86,7 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="userTypeEntity" class="text-white font-weight-bold">USER OR COMPANY</label>
                 <select class="userTypeEntity" name="userTypeEntity" id="userTypeEntity"
-                        th:field="*{userTypeEntity}" >
+                        th:field="*{userTypeEntity}">
                     <option value="EGN">EGN</option>
                     <option value="BULSTAT">BULSTAT</option>
                 </select>

@@ -1,6 +1,8 @@
 package com.example.multiplace.service;
 
+import com.example.multiplace.model.entity.OrdersEntity;
 import com.example.multiplace.model.entity.ToolEntity;
+import com.example.multiplace.repository.OrdersRepository;
 import com.example.multiplace.repository.ToolEntityRepository;
 import com.example.multiplace.model.entity.UserEntity;
 import com.example.multiplace.model.entity.UserRoleEntity;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.multiplace.model.enums.UserRoleEnum.*;
@@ -21,22 +24,25 @@ import static com.example.multiplace.model.enums.UserRoleEnum.*;
 @Service
 public class InitService {
 
-    private UserRepository userRepository;
-    private UserRoleRepository userRoleRepository;
+    private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final ToolEntityRepository toolEntityRepository;
+    private final OrdersRepository ordersRepository;
 
     public InitService(UserRepository userRepository,
                        UserRoleRepository userRoleRepository,
                        PasswordEncoder passwordEncoder,
                        @Value("${app.default.password}") String defaultPassword,
-                       ToolEntityRepository toolEntityRepository) {
+                       ToolEntityRepository toolEntityRepository,
+                       OrdersRepository ordersRepository) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
 
         this.toolEntityRepository = toolEntityRepository;
+        this.ordersRepository = ordersRepository;
     }
 
     @PostConstruct
@@ -44,7 +50,7 @@ public class InitService {
         initRoles();
         initUsers();
         initTools();
-
+        initOrders();
 
     }
 
@@ -62,6 +68,12 @@ public class InitService {
     private void initTools() {
         if (toolEntityRepository.count() == 0) {
             initTool();
+        }
+    }
+
+    private void initOrders() {
+        if (ordersRepository.count() == 0) {
+            initOrder();
         }
     }
 
@@ -116,6 +128,23 @@ public class InitService {
 
     }
 
+    private void initOrder() {
+        OrdersEntity firstOrder = new OrdersEntity()
+                .setOrderTime(LocalDateTime.now())
+                .setOrderPrice(BigDecimal.TEN)
+                .setQuantity(1)
+                .setCustomer(null)
+                .setOrderedTools(null);;
+
+        OrdersEntity secOrder = new OrdersEntity()
+                .setOrderTime(LocalDateTime.now())
+                .setOrderPrice(BigDecimal.ONE)
+                .setQuantity(2)
+                .setCustomer(null)
+                .setOrderedTools(null);
+        ordersRepository.saveAll(List.of(firstOrder, secOrder));
+    }
+
     private void initTool() {
         ToolEntity toolCoser = new ToolEntity()
                 .setToolName("Coser")
@@ -147,4 +176,25 @@ public class InitService {
 
 
     }
+
+    public void initRolesWrapper() {
+        initRoles();
+    }
+
+    public void initToolsWrapper() {
+        initTools();
+    }
+
+    public void initUsersWrapper() {
+        initUsers();
+    }
+
+    public void initAdminWrapper() {
+        initUsers();
+    }
+
+    public void initNormalWrapper() {
+        initUsers();
+    }
+
 }

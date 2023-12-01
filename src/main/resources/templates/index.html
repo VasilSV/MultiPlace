@@ -21,12 +21,12 @@
       </div>
     </th:block>
   </h2>
-<!--  <h3>-->
-<!--    <a class="text-primary" th:href="@{/login}">Login</a>-->
-<!--    if you have an account or-->
-<!--    <a class="text-primary" th:href="@{/register}">Register</a>-->
-<!--    now and check our deals.-->
-<!--  </h3>-->
+  <h3 sec:authorize="!isAuthenticated()">
+    <a class="text-primary" th:href="@{users/login}">Login</a>
+    if you have an account or
+    <a class="text-primary" th:href="@{users/register}">Register</a>
+    now and check our deals.
+  </h3>
 
 </div>
 <div>
