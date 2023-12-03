@@ -3,21 +3,27 @@ package com.example.multiplace.web;
 import com.example.multiplace.dtos.UserRegistrationDTO;
 import com.example.multiplace.service.UserEntityService;
 
+import com.example.multiplace.session.LoggedUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 
+import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @RequestMapping("/users")
@@ -32,16 +38,25 @@ public class UserRegistrationController {
     }
 
 
-    @GetMapping("/register")
-    public String register() {
-        return "auth-register";
-    }
+//    @GetMapping("/register")
+//    public String register() {
+//        return "auth-register";
+//    }
 
     @PostMapping("/register")
-    public String registerNewUser(
-            UserRegistrationDTO userRegistrationDTO,
-            HttpServletRequest request,
-            HttpServletResponse response) {
+    public String registerNewUser(@Valid @ModelAttribute("userRegistrationDTO")
+                                  UserRegistrationDTO userRegistrationDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("userRegistrationDto", userRegistrationDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDto", bindingResult);
+
+            return "redirect:/users/register";
+        }
 
         userEntityService.registerUser(userRegistrationDTO, successfulAuth -> {
             SecurityContextHolderStrategy strategy = SecurityContextHolder.getContextHolderStrategy();
@@ -55,6 +70,17 @@ public class UserRegistrationController {
         });
 
         return "redirect:/";
+    }
+    @GetMapping("/register")
+    private String getRegisterUser(@AuthenticationPrincipal LoggedUser loggedUser, Model model) {
+
+        if(loggedUser != null) {
+            model.addAttribute("username", loggedUser.getUsername());
+            model.addAttribute("email", loggedUser.getEmail());
+        }
+
+
+        return "auth-register";
     }
 
 //    @PostMapping("/register")
