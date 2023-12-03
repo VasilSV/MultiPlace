@@ -6,7 +6,7 @@
 // function customerDetails() {
 //     document.addEventListener('DOMContentLoaded', function () {
 //     var profileView =
-//         username : "${user.name"/* Вмъкнете тук обекта с данни от сървъра */;
+//         username : "${user.name"}
 //         identificationNumber : "${user.identificationNumber}"
 //     // Извличане на елементите, върху които ще добавим данните
 //     var nameElement = document.querySelector('#name');
