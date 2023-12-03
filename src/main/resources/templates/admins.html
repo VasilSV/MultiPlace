@@ -1,16 +1,9 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: head}">
-    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}"/>-->
-    <!--    <script th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>-->
-    <!--    <script src="https://unpkg.com/@popperjs/core@2"></script>-->
-    <!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
+
 </head>
-
-
 <body>
-<!--<script type="text/javascript" src="/static/js/fetchApp.js" ></script -->
-
 <div th:replace="~{fragments/navbar :: navbar}">
     Navbar
 </div>
@@ -19,7 +12,7 @@
         <h2 class="text-center text-white">Admin page</h2>
     </div>
     <div class="col-md-666 ">
-        <img class="center" width="20%" src="/images/admin.jpg" alt="Admin image">
+        <img class="center" width="15%" src="/images/admin.jpg" alt="Admin image">
     </div>
 
     <article class="functions">
@@ -50,18 +43,15 @@
                 </div>
 
             </form>
-            <form th:method="get"
-                  th:action="@{/api/users}"
-                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-                <div class="button-holder d-flex justify-content-center">
-                    <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS
-                    </button>
+            <!--            <form th:method="get"-->
+            <!--                  th:action="@{/api/users}"-->
+            <!--                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">-->
+            <!--                <div class="button-holder d-flex justify-content-center">-->
+            <!--                    <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS-->
+            <!--                    </button>-->
 
-                </div>
-            </form>
-            <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning  mb-3" value="DELETE">DELETE CUSTOMER</button>
-            </div>
+            <!--                </div>-->
+            <!--            </form>-->
             <div class="container">
                 <h2 class="text-center text-white">PRODUCT DETAILS</h2>
             </div>
@@ -89,7 +79,11 @@
             <!--            <div class="button-holder d-flex justify-content-center">-->
             <!--                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>-->
             <!--            </div>-->
-            <form id="toolAddForm" class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            <form th:action="@{/api/tools}" th:method="post" id="toolAddForm"
+                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+                <!-- other form fields here -->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                 <div id="tool-update-container" class="button-holder d-flex justify-content-center">
                     <button id="toolAddList" type="button" class="btn btn-warning mb-3">ADD NEW TOOL</button>
 

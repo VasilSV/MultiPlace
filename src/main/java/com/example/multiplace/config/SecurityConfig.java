@@ -18,8 +18,9 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig  {
 
 
     private final UserRepository userRepository;

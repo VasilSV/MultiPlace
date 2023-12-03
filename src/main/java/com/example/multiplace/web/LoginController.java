@@ -15,25 +15,25 @@ public class LoginController {
         return "auth-login";
     }
 
-//    @PostMapping("/users/login-error")
-//    public String onFailedLogin(
-//            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-//            String userName,
-//            RedirectAttributes redirectAttributes) {
-//        redirectAttributes.addFlashAttribute
-//                (UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, userName);
-//        redirectAttributes.addFlashAttribute("bad_credentials", true);
-//
-//        return "redirect:/users/login";
-//    }
     @PostMapping("/users/login-error")
-    public String onFailure(
-            @ModelAttribute("email") String email,
-            Model model) {
+    public String onFailedLogin(
+            @ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+            String userName,
+            RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute
+                (UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, userName);
+        redirectAttributes.addFlashAttribute("bad_credentials", true);
 
-        model.addAttribute("email", email);
-        model.addAttribute("bad_credentials", "true");
-
-        return "auth-login";
+        return "redirect:/users/login";
     }
+//    @PostMapping("/users/login-error")
+//    public String onFailure(
+//            @ModelAttribute("email") String email,
+//            Model model) {
+//
+//        model.addAttribute("email", email);
+//        model.addAttribute("bad_credentials", "true");
+//
+//        return "auth-login";
+//    }
 }

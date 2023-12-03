@@ -3,6 +3,7 @@ package com.example.multiplace.model.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Table(name = "tools")
 @Entity
@@ -13,7 +14,7 @@ public class ToolEntity {
     private Long id;
     @Column(nullable = false, unique = true)
     private String toolName;
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(nullable = false)
@@ -21,22 +22,12 @@ public class ToolEntity {
 
 
     @ManyToOne
-    private OrdersEntity orders;
-    @ManyToOne
     private UserEntity username;
 
     public ToolEntity() {
     }
 
 
-    public OrdersEntity getOrders() {
-        return orders;
-    }
-
-    public ToolEntity setOrders(OrdersEntity orders) {
-        this.orders = orders;
-        return this;
-    }
 
     public BigDecimal getPrice() {
         return price;

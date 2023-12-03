@@ -2,6 +2,8 @@ package com.example.multiplace.model.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -10,15 +12,30 @@ public class OrdersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String quantity;
 
-    @OneToMany(mappedBy = "orders")
+    @Column(nullable = false)
+    private BigDecimal orderPrice;
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false)
+    private LocalDateTime orderTime;
+
+    @ManyToMany
     private List<ToolEntity> orderedTools;
     @ManyToOne
     private UserEntity customer;
 
     public OrdersEntity() {
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public OrdersEntity setQuantity(Integer quantity) {
+        this.quantity = quantity;
+        return this;
     }
 
     public UserEntity getCustomer() {
@@ -48,12 +65,21 @@ public class OrdersEntity {
         return this;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public BigDecimal getOrderPrice() {
+        return orderPrice;
     }
 
-    public OrdersEntity setQuantity(String quantity) {
-        this.quantity = quantity;
+    public OrdersEntity setOrderPrice(BigDecimal orderPrice) {
+        this.orderPrice = orderPrice;
+        return this;
+    }
+
+    public LocalDateTime getOrderTime() {
+        return orderTime;
+    }
+
+    public OrdersEntity setOrderTime(LocalDateTime orderTime) {
+        this.orderTime = orderTime;
         return this;
     }
 }

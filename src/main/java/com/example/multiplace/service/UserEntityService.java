@@ -81,9 +81,14 @@ public class UserEntityService {
 
     }
 
+
     private static UserDTO mapUserDTO(UserEntity userEntity) {
         UserRoleEntityDTO userRoleEntityDTO = new UserRoleEntityDTO()
-                .setRole(userEntity.getRoles().toString());
+                .setRole(userEntity.getRoles().stream()
+                        .map(UserRoleEntity::getRole)
+                        .map(Enum::name)
+                        .collect(Collectors.joining(", ")));
+
         return new UserDTO()
                 .setId(userEntity.getId())
                 .setEmail(userEntity.getEmail())
@@ -103,21 +108,4 @@ public class UserEntityService {
 }
 
 
-//    public void registerUser(
-//            UserRegistrationDTO userRegistrationDTO) {
-//
-//
-//        userRepository.save(map(userRegistrationDTO));
-//
-//    }
-//
-//    private UserEntity map(UserRegistrationDTO userRegistrationDTO) {
-//        return new UserEntity()
-//             //   .setActive(true)
-//                .setUsername(userRegistrationDTO.getUsername())
-//                .setIdentificationNumber(userRegistrationDTO.getIdentificationNumber())
-//                .setEmail(userRegistrationDTO.getEmail())
-//                .setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
-//    }
-//}
 

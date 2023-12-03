@@ -32,9 +32,9 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "username")
+    @OneToMany(mappedBy = "username", fetch = FetchType.EAGER)
     private List<ToolEntity> toolsList;
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<OrdersEntity> ordersEntityList;
 
     public UserEntity() {

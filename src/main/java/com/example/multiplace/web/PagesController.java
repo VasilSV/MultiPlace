@@ -6,11 +6,20 @@ import com.example.multiplace.service.AppUserDetailsService;
 import com.example.multiplace.service.InitService;
 import com.example.multiplace.view.UserProfileView;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+@CrossOrigin("*")
 @Controller
 public class PagesController {
     private final AppUserDetailsService appUserDetailsService;
@@ -49,40 +58,51 @@ public class PagesController {
     public String users() {
         return "users";
     }
+    @GetMapping("/orders/by/all")
+    public String dostavka() {
+        return "dostavka";
+    }
 
     @GetMapping("/pages/company")
     public String company() {
         return "company";
     }
+
     @GetMapping("/users/profile")
     public String profiles() {
         return "profile";
     }
+
     @GetMapping("/product/coser")
-    public String coser(){return "coser";}
-    @GetMapping("/product/helmet")
-    public String helmet(){return "helmet";}
-    @GetMapping("/product/hammer")
-    public String hammer(){return "hammer";}
-    @GetMapping("/product/shovel")
-    public String shovel(){return "shovel";}
-    @GetMapping("/product/gloves")
-    public String gloves(){return "gloves";}
-    @GetMapping("/product/magnetic-hammer")
-    public String magneticHammer(){return "magnetic-hammer";}
-
-    @PostMapping("/users/profile")
-    public String profile( Model model) {
-
-        UserEntity user = userRepository.getReferenceById(Long.valueOf(users()));
-        UserProfileView profileView = new UserProfileView(
-                user.getUsername(),
-                user.getIdentificationNumber(),
-                user.getEmail(),
-                user.getRoles() == null ? "USER" : String.valueOf(user.getRoles()));
-
-        model.addAttribute("user", profileView);
-
-        return "profile";
+    public String coser() {
+        return "coser";
     }
+
+    @GetMapping("/product/helmet")
+    public String helmet() {
+        return "helmet";
+    }
+
+    @GetMapping("/product/hammer")
+    public String hammer() {
+        return "hammer";
+    }
+
+    @GetMapping("/product/shovel")
+    public String shovel() {
+        return "shovel";
+    }
+
+    @GetMapping("/product/gloves")
+    public String gloves() {
+        return "gloves";
+    }
+
+    @GetMapping("/product/magnetic-hammer")
+    public String magneticHammer() {
+        return "magnetic-hammer";
+    }
+
+
+
 }

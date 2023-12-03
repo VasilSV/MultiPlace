@@ -13,161 +13,171 @@
 <div class="container">
     <h2 class="text-center text-white">A page for all customers</h2>
 </div>
-<div  th:replace="~{fragments/top :: top}"  ></div>
+<div th:replace="~{fragments/top :: top}"></div>
 <div class="col-md-6 ">
-    <img class="rounded"  width="200%" src="/images/prolet.jpg" alt="Welcome image">
+    <img class="rounded" width="200%" src="/images/prolet.jpg" alt="Welcome image">
 </div>
 <main>
     <div class="container bg-blur rounded mt-5 mb-4">
-        <h1 class="text-center text-white">All products for sale :</h1>
-        <div class="row mt-3 mb-3">
-            <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
-                <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
-                <div class="mt-3 rounded badge-info">
-                    <img class="mr-2" src="/images/shovel.jpg" alt="Shovel" width="50px" height="50px">
-                    <span>Name: Shovel Price: 8 lv</span>
+        <h1 class="text-center text-white">Всички продукти за продажба :</h1>
+        <form th:action="@{/api/orders}"
+              th:method="post"
+              class="shovelAddForm">
+            <div class="row mt-3 mb-3">
+                <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
+                    <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
+                    <div class="mt-3 rounded badge-info">
+                        <img class="mr-2" src="/images/shovel.jpg" alt="Shovel" width="50px" height="50px">
+<!--                        <span>Name: Shovel Price: 8 lv</span>-->
+                        <label for="inputShovel">Име: <b>Лопата</b> Цена: 8 лв.</label>
+                        <input th:type="number" th:min="0" class="form-control"
+                               placeholder="Избери Количество"id="inputShovel" required>
+                    </div>
+                    <small class="text-danger"></small>
+                    <button type="button" onclick="addShovelToOrder()"
+                            class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
+                    </button>
+                    <a class="ml-md-5 text-danger" href="/product/shovel">Описание</a>
                 </div>
-                <select class="browser-default custom-select" id="productName" name="productName">
-                    <option value="">Избери количество</option>
-                    <option value="x 10 boxes">x 10 BOXES</option>
-                    <option value="x 20 BOXES">x 20 BOXES</option>
-                    <option value="x 30 BOXES">x 30 BOXES</option>
-                    <option value="x 40 boxes">x 40 BOXES</option>
-                    <option value="x 50 boxes">x 50 BOXES</option>
-                    <option value="x 60 boxes">x 60 BOXES</option>
-                    <option value="x 70 boxes">x 70 BOXES</option>
-                    <option value="x 80 boxes">x 80 BOXES</option>
-                    <option value="x 90 boxes">x 90 BOXES</option>
-                </select>
-                <small class="text-danger"></small>
-                <a class="ml-md-5 text-danger" href="/product/shovel">Buy</a>
             </div>
-        </div>
+        </form>
 
+        <form th:action="@{/api/orders}"
+              th:method="post"
+              class="coserAddForm">
         <div class="row mt-3 mb-3">
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
                 <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
                 <div class="mt-3 rounded badge-warning">
                     <img class="mr-2" src="/images/coser.jpg" alt="Coser" width="50px" height="50px">
-                    <span>Name: Coser Price: 22 lv</span>
+                    <label for="inputCoser">Име: <b>Косер</b> Цена: 22 лв.</label>
+                    <input th:type="number" th:min="0" class="form-control"
+                           placeholder="Избери Количество"id="inputCoser" required>
                 </div>
-                <select class="browser-default custom-select" id="condition2" name="condition">
-                    <option value="">Избери количество</option>
-                    <option value="x 10 boxes">x 10 BOXES</option>
-                    <option value="x 20 BOXES">x 20 BOXES</option>
-                    <option value="x 30 BOXES">x 30 BOXES</option>
-                    <option value="x 40 boxes">x 40 BOXES</option>
-                    <option value="x 50 boxes">x 50 BOXES</option>
-                    <option value="x 60 boxes">x 60 BOXES</option>
-                    <option value="x 70 boxes">x 70 BOXES</option>
-                    <option value="x 80 boxes">x 80 BOXES</option>
-                    <option value="x 90 boxes">x 90 BOXES</option>
-                </select>
+
+
                 <small class="text-danger"></small>
-                <a class="ml-md-5 text-danger" href="/product/coser">Buy</a>
+                <button type="button" onclick="addCoserToOrder()"
+                        class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
+                </button>
+                <a class="ml-md-5 text-danger" href="/product/coser">Описание</a>
             </div>
 
         </div>
-        <div class="row mt-3 mb-3">
-            <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
-                <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
-                <div class="mt-3 rounded badge-info">
-                    <img class="mr-2" src="/images/hammer.jpg" alt="Hammer" width="50px" height="50px">
-                    <span>Name: Hammer Price: 32 lv</span>
-                </div>
-                <select class="browser-default custom-select" id="condition3" name="condition">
-                    <option value="">Избери количество</option>
-                    <option value="x 10 boxes">x 10 BOXES</option>
-                    <option value="x 20 BOXES">x 20 BOXES</option>
-                    <option value="x 30 BOXES">x 30 BOXES</option>
-                    <option value="x 40 boxes">x 40 BOXES</option>
-                    <option value="x 50 boxes">x 50 BOXES</option>
-                    <option value="x 60 boxes">x 60 BOXES</option>
-                    <option value="x 70 boxes">x 70 BOXES</option>
-                    <option value="x 80 boxes">x 80 BOXES</option>
-                    <option value="x 90 boxes">x 90 BOXES</option>
-                </select>
-                <small class="text-danger"></small>
-                <a class="ml-md-5 text-danger" href="/product/hammer">Buy</a>
-            </div>
-        </div>
-        <div class="row mt-3 mb-3">
-            <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
-                <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
-                <div class="mt-3 rounded badge-warning">
-                    <img class="mr-2" src="/images/magneticHammer.jpg" alt="Magnetic" width="50px" height="50px">
-                    <span>Name: Magnetic Hammer Price: 44 lv</span>
-                </div>
-                <select class="browser-default custom-select" id="condition4" name="condition">
-                    <option value="">Избери количество</option>
-                    <option value="x 10 boxes">x 10 BOXES</option>
-                    <option value="x 20 BOXES">x 20 BOXES</option>
-                    <option value="x 30 BOXES">x 30 BOXES</option>
-                    <option value="x 40 boxes">x 40 BOXES</option>
-                    <option value="x 50 boxes">x 50 BOXES</option>
-                    <option value="x 60 boxes">x 60 BOXES</option>
-                    <option value="x 70 boxes">x 70 BOXES</option>
-                    <option value="x 80 boxes">x 80 BOXES</option>
-                    <option value="x 90 boxes">x 90 BOXES</option>
-                </select>
-                <small class="text-danger"></small>
-                <a class="ml-md-5 text-danger" href="/product/magnetic-hammer">Buy</a>
-            </div>
-
-        </div>
-        <div class="row mt-3 mb-3">
-            <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
-                <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
-                <div class="mt-3 rounded badge-success">
-                    <img class="mr-2" src="/images/hat.jpg" alt="Helmet" width="50px" height="50px">
-                    <span>Name: Helmet Price: 9 lv</span>
-                </div>
-                <select class="browser-default custom-select" id="condition5" name="condition">
-                    <option value="">Избери количество</option>
-                    <option value="x 10 boxes">x 10 BOXES</option>
-                    <option value="x 20 BOXES">x 20 BOXES</option>
-                    <option value="x 30 BOXES">x 30 BOXES</option>
-                    <option value="x 40 boxes">x 40 BOXES</option>
-                    <option value="x 50 boxes">x 50 BOXES</option>
-                    <option value="x 60 boxes">x 60 BOXES</option>
-                    <option value="x 70 boxes">x 70 BOXES</option>
-                    <option value="x 80 boxes">x 80 BOXES</option>
-                    <option value="x 90 boxes">x 90 BOXES</option>
-                </select>
-                <small class="text-danger"></small>
-                <a class="ml-md-5 text-danger" href="/product/helmet">Buy</a>
-                <a class="ml-md-5 text-danger" href="/">Description</a>
-            </div>
-        </div>
-        <div class="row mt-3 mb-3">
-            <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
-                <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
-                <div class="mt-3 rounded badge-secondary">
-                    <img class="mr-2" src="/images/gloves.jpg" alt="Gloves" width="50px" height="50px">
-                    <span>Name: Gloves Price: 2 lv</span>
-                </div>
-                <select class="browser-default custom-select" id="condition6" name="condition">
-                    <option value="">Избери количество</option>
-                    <option value="x 10 boxes">x 10 BOXES</option>
-                    <option value="x 20 BOXES">x 20 BOXES</option>
-                    <option value="x 30 BOXES">x 30 BOXES</option>
-                    <option value="x 40 boxes">x 40 BOXES</option>
-                    <option value="x 50 boxes">x 50 BOXES</option>
-                    <option value="x 60 boxes">x 60 BOXES</option>
-                    <option value="x 70 boxes">x 70 BOXES</option>
-                    <option value="x 80 boxes">x 80 BOXES</option>
-                    <option value="x 90 boxes">x 90 BOXES</option>
-                </select>
-                <small class="text-danger"></small>
-                <a class="ml-md-5 text-danger" href="/product/gloves">Buy</a>
-            </div>
+        </form>
 
 
-        </div>
-        <a href="/orders/by/all" class="btn btn-danger" th:text="|Buy all products for ${totalOrders} lv|"></a>
+        <form th:action="@{/api/orders}"
+              th:method="post"
+              class="hammerAddForm">
+            <div class="row mt-3 mb-3">
+                <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
+                    <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
+                    <div class="mt-3 rounded badge-info">
+                        <img class="mr-2" src="/images/hammer.jpg" alt="Hammer" width="50px" height="50px">
+                        <label for="inputHammer">Име: <b>Чук кози крак</b> Цена: 34 лв.</label>
+                        <input th:type="number" th:min="0" class="form-control"
+                               placeholder="Избери Количество"id="inputHammer" required>
+                    </div>
+
+
+                    <small class="text-danger"></small>
+                    <button type="button" onclick="addHammerToOrder()"
+                            class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
+                    </button>
+                    <a class="ml-md-5 text-danger" href="/product/hammer">Описание</a>
+                </div>
+
+            </div>
+        </form>
+
+        <form th:action="@{/api/orders}"
+              th:method="post"
+              class="MGHammerAddForm">
+            <div class="row mt-3 mb-3">
+                <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
+                    <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
+                    <div class="mt-3 rounded badge-warning">
+                        <img class="mr-2" src="/images/magneticHammer.jpg" alt="MGHammer" width="50px" height="50px">
+                        <label for="inputMGHammer">Име: <b>Чук магнитен</b> Цена: 49 лв.</label>
+                        <input th:type="number" th:min="0" class="form-control"
+                               placeholder="Избери Количество"id="inputMGHammer" required>
+                    </div>
+
+
+                    <small class="text-danger"></small>
+                    <button type="button" onclick="addMGHammerToOrder()"
+                            class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
+                    </button>
+                    <a class="ml-md-5 text-danger" href="/product/magnetic-hammer">Описание</a>
+                </div>
+
+            </div>
+        </form>
+
+        <form th:action="@{/api/orders}"
+              th:method="post"
+              class="helmetAddForm">
+            <div class="row mt-3 mb-3">
+                <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
+                    <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
+                    <div class="mt-3 rounded badge-info">
+                        <img class="mr-2" src="/images/hat.jpg" alt="Helmet" width="50px" height="50px">
+                        <label for="inputHelmet">Име: <b>Строителна каска</b> Цена: 34 лв.</label>
+                        <input th:type="number" th:min="0" class="form-control"
+                               placeholder="Избери Количество"id="inputHelmet" required>
+                    </div>
+
+
+                    <small class="text-danger"></small>
+                    <button type="button" onclick="addHelmetToOrder()"
+                            class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
+                    </button>
+                    <a class="ml-md-5 text-danger" href="/product/helmet">Описание</a>
+                </div>
+
+            </div>
+        </form>
+
+        <form th:action="@{/api/orders}"
+              th:method="post"
+              class="GlovesAddForm">
+            <div class="row mt-3 mb-3">
+                <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
+                    <h3 class="mySticky bg-gray text-dark rounded">Tools</h3>
+                    <div class="mt-3 rounded badge-warning">
+                        <img class="mr-2" src="/images/gloves.jpg" alt="Gloves" width="50px" height="50px">
+                        <label for="inputGloves">Име: <b>Работни ръкавици</b> Цена: 3 лв.</label>
+                        <input th:type="number" th:min="0" class="form-control"
+                               placeholder="Избери Количество"
+                               id="inputGloves"  required>
+                    </div>
+
+                    <small class="text-danger"></small>
+                    <button type="button" onclick="addGlovesToOrder()"
+                            class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
+                    </button>
+                    <a class="ml-md-5 text-danger" href="/product/gloves">Описание</a>
+                </div>
+            </div>
+        </form>
+
+        <a href="/orders/by/all" class="btn btn-danger" id="ordersSumBtn" th:text="|Списък със заявени продукти:  | "></a>
     </div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
+<script src="/js/OrderingShovel.js"></script>
+<script src="/js/OrderringCoser.js"></script>
+<script src="/js/OrderingGloves.js"></script>
+<script src="/js/OrderingHammer.js"></script>
+<script src="/js/OrderingHelmet.js"></script>
+<script src="/js/OrderingMagneticHammer.js"></script>
+<script src="/js/BuyGloves.js"></script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+        buyGloves();
+    });
+</script>
 </body>
 </html>

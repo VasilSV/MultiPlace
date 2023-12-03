@@ -9,15 +9,11 @@ import jakarta.validation.constraints.Size;
 
 public class UserRegistrationDTO {
 
-    //    @FieldMatch(
-//            first = "password",
-//            second = "confirmPassword",
-//            message = "Passwords should match."
-//    )
-    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters ")
+
     @NotNull
+    @Size(min = 2, max = 20, message = "Username length must be between 2 and 20 characters ")
     private String username;
-    @NotNull
+    @NotNull(message = "ID cannot be empty!")
     private String identificationNumber;
     @NotNull
     private UserTypeEntity userTypeEntity;
@@ -27,7 +23,7 @@ public class UserRegistrationDTO {
     @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters ")
     @NotNull
     private String password;
-    @Size(min = 3, max = 20, message = " ")
+    @Size(min = 3, max = 20, message = "Passwords should match")
     @NotNull
     private String confirmPassword;
 

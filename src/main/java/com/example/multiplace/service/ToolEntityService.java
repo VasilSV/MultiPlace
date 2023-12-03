@@ -28,7 +28,7 @@ public class ToolEntityService {
 
     }
 
-    private static ToolDTO mapToolsDTO(ToolEntity toolEntity) {
+    static ToolDTO mapToolsDTO(ToolEntity toolEntity) {
 
         return new ToolDTO()
                 .setId(toolEntity.getId())
@@ -47,8 +47,6 @@ public class ToolEntityService {
 
     public Long createTool(ToolDTO toolDTO) {
 
-//        Optional<AuthorEntity> authorOpt = authorRepository
-//                .findByName(bookDTO.getAuthor().getName());
 
         ToolEntity newTool = new ToolEntity()
                 .setToolName(toolDTO.getToolName())
@@ -58,5 +56,14 @@ public class ToolEntityService {
         newTool = toolEntityRepository.save(newTool);
 
         return newTool.getId();
+    }
+
+    public ToolEntity addTool(ToolDTO toolDTO) {
+        return toolEntityRepository.save(new ToolEntity()
+                .setId(toolDTO.getId())
+                .setToolName(toolDTO.getToolName())
+                .setDescription(toolDTO.getDescription())
+                .setPrice(toolDTO.getPrice()));
+
     }
 }

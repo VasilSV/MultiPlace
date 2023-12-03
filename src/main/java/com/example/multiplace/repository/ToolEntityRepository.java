@@ -5,12 +5,16 @@ import com.example.multiplace.model.entity.ToolEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ToolEntityRepository extends JpaRepository<ToolEntity, Long> {
-    Optional<ToolDTO> findToolEntitiesByToolName(String toolName);
+    List<ToolEntity> findToolEntitiesByToolName(String toolName);
 
 
     Optional<ToolDTO> deleteToolEntityById(Long id);
+
+
+    List<ToolEntity> findByToolName(String toolName);
 }
