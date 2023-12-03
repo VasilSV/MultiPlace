@@ -8,7 +8,7 @@
 //     var profileView =
 //         username : "${user.name"}
 //         identificationNumber : "${user.identificationNumber}"
-//     // Извличане на елементите, върху които ще добавим данните
+
 //     var nameElement = document.querySelector('#name');
 //     var idElement = document.querySelector('#id');
 //     var emailElement = document.querySelector('#email');
