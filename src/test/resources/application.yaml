@@ -1,0 +1,47 @@
+
+spring:
+  application:
+    name: multiPlace
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.security: TRACE
+
+#    sql:
+#      init:
+#        mode: always
+
+#    mvc:
+#      hiddenmethod:
+#        filter:
+#          enabled: true
+
+server:
+  error:
+    include-message: always
+  #Cloudinary Properties
+  #cloudinary:
+  #api-key:
+  #api-secret:
+  #cloud-name:
+
+app:
+  default:
+    password: qqq
+
+binding-result-package: org.springframework.validation.BindingResult
