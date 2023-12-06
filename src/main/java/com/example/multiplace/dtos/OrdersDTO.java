@@ -1,28 +1,32 @@
 package com.example.multiplace.dtos;
 
-import com.example.multiplace.model.entity.ToolEntity;
 import com.example.multiplace.model.entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrdersDTO {
 
 
     private Long id;
 
-
+    @NotNull
+    @Positive
     private BigDecimal orderPrice;
-
+    @NotNull
     private Integer quantity;
+    @NotNull
     private LocalDateTime orderTime;
-
+    @NotNull
+    @JsonIgnore
     private UserEntity customer;
-
-    private List<ToolEntity> orderedTools;
+    @NotNull
+    private List<ToolDTO> orderedTools;
 
     public OrdersDTO() {
     }
@@ -73,19 +77,12 @@ public class OrdersDTO {
     }
 
 
-
-    public List<ToolEntity> getOrderedTools() {
+    public List<ToolDTO> getOrderedTools() {
         return orderedTools;
     }
 
     public OrdersDTO setOrderedTools(List<ToolDTO> orderedTools) {
-        this.orderedTools = orderedTools.stream()
-                .map(toolDTO -> new ToolEntity()
-                        .setId(toolDTO.getId())
-                        .setToolName(toolDTO.getToolName())
-                        .setDescription(toolDTO.getDescription())
-                        .setPrice(toolDTO.getPrice()))
-                .collect(Collectors.toList());
+        this.orderedTools = orderedTools;
         return this;
     }
 }

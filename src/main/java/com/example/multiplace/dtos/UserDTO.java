@@ -8,13 +8,13 @@ import jakarta.validation.constraints.NotNull;
 public class UserDTO {
 
     private Long id;
-
+    @NotNull
     private String username;
-
+    @NotNull
     private String identificationNumber;
-
+    @NotNull
     private String email;
-
+    @NotNull
     private UserRoleEntityDTO role;
 
     public UserDTO() {

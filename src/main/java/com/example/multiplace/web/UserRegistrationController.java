@@ -3,17 +3,17 @@ package com.example.multiplace.web;
 import com.example.multiplace.dtos.UserRegistrationDTO;
 import com.example.multiplace.service.UserEntityService;
 
-import com.example.multiplace.session.LoggedUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 
 import jakarta.validation.Valid;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 
@@ -52,8 +52,8 @@ public class UserRegistrationController {
                                   HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute("userRegistrationDto", userRegistrationDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDto", bindingResult);
+                    .addFlashAttribute("userRegistrationDTO", userRegistrationDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDTO", bindingResult);
 
             return "redirect:/users/register";
         }
@@ -71,17 +71,19 @@ public class UserRegistrationController {
 
         return "redirect:/";
     }
+
     @GetMapping("/register")
-    private String getRegisterUser(@AuthenticationPrincipal LoggedUser loggedUser, Model model) {
+    private String getRegisterUser(Authentication authentication, Model model) {
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            model.addAttribute("username", userDetails.getUsername());
+            model.addAttribute("password", userDetails.getPassword());
 
-        if(loggedUser != null) {
-            model.addAttribute("username", loggedUser.getUsername());
-            model.addAttribute("email", loggedUser.getEmail());
         }
-
 
         return "auth-register";
     }
+
 
 //    @PostMapping("/register")
 //    private String registerUser(@Valid @ModelAttribute(name = "userRegistrationDto") UserRegistrationDTO userRegistrationDTO,

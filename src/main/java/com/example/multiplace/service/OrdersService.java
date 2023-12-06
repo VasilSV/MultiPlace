@@ -5,12 +5,17 @@ import com.example.multiplace.dtos.ToolDTO;
 import com.example.multiplace.model.entity.OrdersEntity;
 import com.example.multiplace.model.entity.ToolEntity;
 import com.example.multiplace.model.entity.UserEntity;
+import com.example.multiplace.model.entity.UserRoleEntity;
 import com.example.multiplace.repository.OrdersRepository;
 import com.example.multiplace.repository.ToolEntityRepository;
 import com.example.multiplace.repository.UserRepository;
+import com.example.multiplace.repository.UserRoleRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,15 +27,17 @@ public class OrdersService {
     private final UserRepository userRepository;
     private final ToolEntityRepository toolEntityRepository;
     private final ToolEntityService toolEntityService;
+    private UserRoleRepository userRoleRepository;
 
     public OrdersService(OrdersRepository ordersRepository,
                          UserRepository userRepository,
                          ToolEntityRepository toolEntityRepository,
-                         ToolEntityService toolEntityService) {
+                         ToolEntityService toolEntityService, UserRoleRepository userRoleRepository) {
         this.ordersRepository = ordersRepository;
         this.userRepository = userRepository;
         this.toolEntityRepository = toolEntityRepository;
         this.toolEntityService = toolEntityService;
+        this.userRoleRepository = userRoleRepository;
     }
 
     public List<OrdersDTO> getAllOrders() {
@@ -64,14 +71,51 @@ public class OrdersService {
     public void deleteOrdersByID(Long id) {
         this.ordersRepository.deleteById(id);
     }
-    public Long createOrder(OrdersDTO ordersDTO) {
-        UserEntity customer = userRepository.findByEmail(ordersDTO.getCustomer().getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+@Transactional
+public Long createOrder(OrdersDTO ordersDTO, Authentication authentication) {
+    if (ordersDTO == null || ordersDTO.getOrderPrice() == null) {
+        throw new IllegalArgumentException("OrdersDTO is null or Order Price is null");
+    }
+
+
+//        String customerEmail = ((UserEntity) authentication.getPrincipal()).getEmail();
+//        UserEntity customer = userRepository.findByEmail(customerEmail)
+//                .orElseThrow(() -> new IllegalArgumentException("Customer not found with email: " + customerEmail));
+
+        String username = authentication.getName();
+        UserEntity customer = userRepository.findByEmail(username)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with username: " + username));
+
+        List<UserRoleEntity> customerRoles = customer.getRoles();
+        if (customerRoles == null) {
+            throw new IllegalArgumentException("Customer roles are null");
+        }
+
+        List<UserRoleEntity> roles = userRoleRepository.findAllByRoleIn(customerRoles.stream()
+                .map(UserRoleEntity::getRole)
+                .collect(Collectors.toList()));
+
+        if (roles.size() != customerRoles.size()) {
+            throw new IllegalArgumentException("Not all roles were found");
+        }
+        customer.setRoles(roles);
+//        UserEntity customer = userRepository.findByEmail(ordersDTO.getCustomer().getEmail())
+//                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
 
 //        List<ToolEntity> orderedTools = toolEntityRepository
 //                .findToolEntitiesByToolName(String.valueOf(ordersDTO.getOrderedTools()));
-        List<ToolEntity> orderedTools = toolEntityRepository
-                .findByToolName(String.valueOf(ordersDTO.getOrderedTools()));
+//        List<ToolEntity> orderedTools = toolEntityRepository
+//                .findByToolNameIn(Collections.singletonList(ordersDTO.getOrderedTools()
+//                        .stream().map(ToolDTO::getToolName)
+//                        .collect(Collectors.toList()).toString()));
+    List<String> toolNames = ordersDTO.getOrderedTools()
+            .stream()
+            .map(ToolDTO::getToolName)
+            .collect(Collectors.toList());
+
+    List<ToolEntity> orderedTools = toolEntityRepository.findByToolNameIn(toolNames);
         if (orderedTools.isEmpty()) {
             throw new IllegalArgumentException("No tools found");
         }
@@ -81,7 +125,7 @@ public class OrdersService {
                 .setOrderTime(LocalDateTime.now())
                 .setOrderedTools(orderedTools)
                 .setQuantity(ordersDTO.getQuantity())
-                .setCustomer(ordersDTO.getCustomer());
+                .setCustomer(customer);
 
         newOrder = ordersRepository.save(newOrder);
 

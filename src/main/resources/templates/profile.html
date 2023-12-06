@@ -17,7 +17,8 @@
                         class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
                     <div class="button-holder d-flex justify-content-center">
                         <button id="ordersLoadList" type="button"
-                                class="btn btn-warning  mb-3" value="Register">ORDERS LIST
+                                class="btn btn-warning  mb-3"  value="Register">ORDERS LIST
+<!--                                onclick="location.href='/api/orders'"-->
                         </button>
                         <section>
                             <table>
@@ -30,7 +31,8 @@
                                     <th>OPERATION</th>
                                 </tr>
                                 </thead>
-                                <tbody id="orders-container"></tbody>
+                                <tbody id="orders-container">
+                                </tbody>
                             </table>
                         </section>
                     </div>
@@ -125,6 +127,7 @@
 </div>
 <script src="/js/CompanyApp.js"></script>
 <script src="/js/OrdersApp.js"></script>
+
 </body>
 <footer></footer>
 </html>

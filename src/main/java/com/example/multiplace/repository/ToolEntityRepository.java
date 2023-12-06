@@ -17,4 +17,6 @@ public interface ToolEntityRepository extends JpaRepository<ToolEntity, Long> {
 
 
     List<ToolEntity> findByToolName(String toolName);
+
+    List<ToolEntity> findByToolNameIn(List<String> toolNames);
 }

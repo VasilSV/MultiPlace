@@ -24,6 +24,7 @@ public class OrdersEntity {
     @ManyToMany
     private List<ToolEntity> orderedTools;
     @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private UserEntity customer;
 
     public OrdersEntity() {

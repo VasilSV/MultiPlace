@@ -129,19 +129,26 @@ public class InitService {
     }
 
     private void initOrder() {
+        UserEntity customer = userRepository.findByEmail("aladin@abv.bg")
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+        List<ToolEntity> orderedTools =
+                toolEntityRepository.findByToolNameIn(List.of("Gloves", "Hammer"));
+
+
         OrdersEntity firstOrder = new OrdersEntity()
                 .setOrderTime(LocalDateTime.now())
                 .setOrderPrice(BigDecimal.TEN)
                 .setQuantity(1)
-                .setCustomer(null)
-                .setOrderedTools(null);;
+                .setCustomer(customer)
+                .setOrderedTools(orderedTools);
 
         OrdersEntity secOrder = new OrdersEntity()
                 .setOrderTime(LocalDateTime.now())
                 .setOrderPrice(BigDecimal.ONE)
                 .setQuantity(2)
-                .setCustomer(null)
-                .setOrderedTools(null);
+                .setCustomer(customer)
+                .setOrderedTools(orderedTools);
         ordersRepository.saveAll(List.of(firstOrder, secOrder));
     }
 

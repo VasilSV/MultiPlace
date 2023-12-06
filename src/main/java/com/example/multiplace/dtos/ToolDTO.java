@@ -1,15 +1,18 @@
 package com.example.multiplace.dtos;
 
 
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 public class ToolDTO {
 
     private Long id;
+    @NotNull
     private String toolName;
 
     private String description;
-
+    @NotNull
     private BigDecimal price;
 
 

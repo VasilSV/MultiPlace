@@ -58,25 +58,5 @@ public class ToolsRestController {
         ).build();
     }
 
-//    @PostMapping
-//    public ResponseEntity<ToolDTO> createTool(
-//            @RequestBody ToolDTO toolDTO,
-//            UriComponentsBuilder uriComponentsBuilder) {
-//
-//        long newToolID = toolEntityService.createTool(toolDTO);
-//
-//        return ResponseEntity.created(
-//                uriComponentsBuilder.path("/api/tools/{id}").build(newToolID)
-//        ).build();
-//    }
-//    @PostMapping
-//    public ResponseEntity<ToolDTO> addTool(@RequestBody ToolDTO tool) {
-//        try {
-//            ToolEntity newTool = toolEntityService.addTool(tool);
-//            return new ResponseEntity<>(newTool, HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 }
 

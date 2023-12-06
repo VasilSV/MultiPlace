@@ -4,10 +4,17 @@ function buyGloves() {
     var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
 
     var ordersDTO = {
-        orderedTools: "Gloves",
+        orderedTools: [
+            {
+                toolName: "Gloves",
+                description: "Работни ръкавици",
+                price: 3.0
+            }
+        ],
 
         quantity: quantity
     };
+    console.log('ordersDTO:', ordersDTO);
     fetch('http://localhost:8080/api/orders', {
         method: 'POST',
         headers: {
@@ -24,6 +31,7 @@ function buyGloves() {
         })
         .then(data => {
             console.log(data);
+            addGlovesToOrder();
 
         })
         .catch(error => {
@@ -31,7 +39,11 @@ function buyGloves() {
 
         });
 }
-
+function addGlovesToOrder() {
+    var quantity = document.getElementById('inputGloves').value;
+    var ordersSumBtn = document.getElementById('ordersSumBtn');
+    ordersSumBtn.innerHTML += '<span> Работни ръкавици: ' + quantity + ' бр.</span><br>';
+}
 
 //     $.ajax({
 //         url: 'http://localhost:8080/api/orders',
