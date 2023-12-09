@@ -1,5 +1,6 @@
 package com.example.multiplace.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ public class OrdersEntity {
     private List<ToolEntity> orderedTools;
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
     private UserEntity customer;
 
     public OrdersEntity() {
@@ -83,4 +85,5 @@ public class OrdersEntity {
         this.orderTime = orderTime;
         return this;
     }
+
 }

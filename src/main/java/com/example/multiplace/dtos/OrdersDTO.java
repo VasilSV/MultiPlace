@@ -4,6 +4,7 @@ import com.example.multiplace.model.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.security.core.Authentication;
 
 
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ public class OrdersDTO {
     @NotNull
     private LocalDateTime orderTime;
     @NotNull
-    @JsonIgnore
+ //   @JsonIgnore
     private UserEntity customer;
     @NotNull
     private List<ToolDTO> orderedTools;
@@ -85,4 +86,5 @@ public class OrdersDTO {
         this.orderedTools = orderedTools;
         return this;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.multiplace.model.entity;
 
 import com.example.multiplace.model.enums.UserTypeEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "username", fetch = FetchType.EAGER)
     private List<ToolEntity> toolsList;
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+   @JsonManagedReference
     private List<OrdersEntity> ordersEntityList;
 
     public UserEntity() {
@@ -131,12 +133,26 @@ public class UserEntity {
         return "UserEntity{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", userTypeEntity=" + userTypeEntity +
                 ", identificationNumber='" + identificationNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + (password != null ? "[PROVIDED]" : "[N/A]") + '\'' +
                 ", roles=" + roles +
                 ", toolsList=" + toolsList +
+                ", ordersEntityList=" + ordersEntityList +
                 '}';
     }
+//    @Override
+//    public String toString() {
+//        return "UserEntity{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", identificationNumber='" + identificationNumber + '\'' +
+//                ", email='" + email + '\'' +
+//                ", password='" + (password != null ? "[PROVIDED]" : "[N/A]") + '\'' +
+//                ", roles=" + roles +
+//                ", toolsList=" + toolsList +
+//                '}';
+//    }
 
 }

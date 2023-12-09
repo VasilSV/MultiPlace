@@ -41,6 +41,7 @@ public class SecurityConfig  {
                         .permitAll()
                         .requestMatchers("/pages/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/product/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/company").hasRole(UserRoleEnum.COMPANY.name())
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/pages/admins").hasRole(UserRoleEnum.ADMIN.name())
                         .requestMatchers("/pages/company").hasRole(UserRoleEnum.COMPANY.name())

@@ -80,6 +80,16 @@ public class ToolEntity {
                 "id=" + id +
                 ", toolName='" + toolName + '\'' +
                 ", description='" + description + '\'' +
+                ", price=" + price +
+                ", username=" + username +
                 '}';
     }
+//    @Override
+//    public String toString() {
+//        return "ToolEntity{" +
+//                "id=" + id +
+//                ", toolName='" + toolName + '\'' +
+//                ", description='" + description + '\'' +
+//                '}';
+//    }
 }
