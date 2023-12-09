@@ -1,6 +1,7 @@
 package com.example.multiplace.web;
 
 import com.example.multiplace.dtos.UserDTO;
+import com.example.multiplace.dtos.UserUpdateDTO;
 import com.example.multiplace.model.entity.UserEntity;
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.service.UserEntityService;

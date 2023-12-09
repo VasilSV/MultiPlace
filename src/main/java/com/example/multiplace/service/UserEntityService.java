@@ -105,6 +105,23 @@ public class UserEntityService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+
+    public void updateUserProfile(String email, String newPassword, String newIdentificationNumber) {
+        userRepository.findByEmail(email).ifPresent(userEntity -> {
+
+            if (newPassword != null && !newPassword.isEmpty()) {
+                userEntity.setPassword(passwordEncoder.encode(newPassword));
+            }
+
+
+            if (newIdentificationNumber != null && !newIdentificationNumber.isEmpty()) {
+                userEntity.setIdentificationNumber(newIdentificationNumber);
+            }
+
+            userRepository.save(userEntity);
+        });
+    }
 }
 
 

@@ -85,24 +85,6 @@ public class UserRegistrationController {
     }
 
 
-//    @PostMapping("/register")
-//    private String registerUser(@Valid @ModelAttribute(name = "userRegistrationDto") UserRegistrationDTO userRegistrationDTO,
-//                                BindingResult bindingResult,
-//                                RedirectAttributes redirectAttributes
-//    ) {
-//
-//        if (bindingResult.hasErrors()) {
-//            redirectAttributes
-//                    .addFlashAttribute("userRegistrationDto", userRegistrationDTO)
-//                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDto", bindingResult);
-//
-//            return "redirect:/users/register";
-//        }
-//        this.userEntityService.registerUser(userRegistrationDTO);
-//
-//        return "redirect:/";
-//    }
-
     @PostMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();

@@ -86,9 +86,6 @@ public class InitService {
     }
 
     private void initAdmin() {
-
-//            UserRoleEntity adminRole = userRoleRepository.findUserRoleEntityByRole(ADMIN)
-//                    .orElseThrow(() -> new IllegalStateException(" greshka v rolqta admin"));
         UserEntity adminUser = new UserEntity()
                 .setUsername("Admin")
                 .setEmail("aladin@abv.bg")

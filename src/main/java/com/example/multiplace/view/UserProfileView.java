@@ -17,6 +17,10 @@ public class UserProfileView {
         this.role = role;
     }
 
+    public UserProfileView() {
+
+    }
+
     public String getUsername() {
         return username;
     }
@@ -53,3 +57,4 @@ public class UserProfileView {
         return this;
     }
 }
+

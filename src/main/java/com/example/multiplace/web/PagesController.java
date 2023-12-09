@@ -1,23 +1,19 @@
 package com.example.multiplace.web;
 
-import com.example.multiplace.model.entity.UserEntity;
+
+import com.example.multiplace.model.CurrentUser;
+
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.service.AppUserDetailsService;
 import com.example.multiplace.service.InitService;
 import com.example.multiplace.view.UserProfileView;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @Controller
@@ -58,14 +54,10 @@ public class PagesController {
     public String users() {
         return "users";
     }
+
     @GetMapping("/orders/by/all")
     public String dostavka() {
         return "dostavka";
-    }
-
-    @GetMapping("/pages/company")
-    public String company() {
-        return "company";
     }
 
     @GetMapping("/users/profile")
@@ -103,6 +95,55 @@ public class PagesController {
         return "magnetic-hammer";
     }
 
+    @ModelAttribute("userProfileView")
+    public UserProfileView initUserProfileView() {
+        return new UserProfileView();
+    }
 
+    @GetMapping("/pages/company")
+    public String companyPage(Model model,
+                              @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof CurrentUser) {
+            CurrentUser currentUser = (CurrentUser) userDetails;
+            model.addAttribute("identificationNumber", currentUser.getIdentificationNumber());
+
+            model.addAttribute("email", currentUser.getEmail());
+        }
+
+
+        String userEmail = userDetails.getUsername();
+
+
+        UserProfileView userProfileView = fetchUserProfile(userEmail);
+
+
+        model.addAttribute("userProfileView", userProfileView);
+        model.addAttribute("identificationNumber", userProfileView.getIdentificationNumber());
+        model.addAttribute("username", userProfileView.getUsername());
+
+
+        return "company";
+    }
+
+    private UserProfileView fetchUserProfile(String email) {
+
+        UserDetails userDetails = appUserDetailsService.loadUserByUsername(email);
+
+
+        UserProfileView userProfileView = mapUserDetailsToUserProfileView(userDetails);
+
+        return userProfileView;
+    }
+
+    private UserProfileView mapUserDetailsToUserProfileView(UserDetails userDetails) {
+
+
+        UserProfileView userProfileView = new UserProfileView();
+        userProfileView.setUsername(userDetails.getUsername());
+        //userProfileView.setIdentificationNumber()
+        // Други полета...
+
+        return userProfileView;
+    }
 
 }

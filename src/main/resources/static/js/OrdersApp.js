@@ -1,3 +1,4 @@
+
 let ordersLoadListButton = document.getElementById('ordersLoadList');
 ordersLoadListButton.addEventListener('click', ordersLoadList)
 
@@ -22,15 +23,17 @@ function ordersLoadList() {
             let orderTimeCol = document.createElement("td")
             let customerCol = document.createElement("td")
             let orderedToolsCol = document.createElement("td")
+            let quantityCol = document.createElement("td")
             let orderPriceCol = document.createElement("td")
 
             let operationCol = document.createElement('td')
 
             orderTimeCol.textContent = order.orderTime
-            customerCol.textContent = order.custmer? order.customer.toString() : '';
+            customerCol.textContent = order.customer.email
             orderedToolsCol.textContent = order.orderedTools
                 .map(tool => tool.toolName ).join(", ");
-            orderPriceCol.textContent = order.price ? order.price.toString() : '';
+            quantityCol.textContent=order.quantity
+            orderPriceCol.textContent = order.orderPrice ? order.orderPrice.toString() : '';
 
 
             let deleteOrderBtn = document.createElement('button')
@@ -44,6 +47,7 @@ function ordersLoadList() {
             orderRow.appendChild(orderTimeCol)
             orderRow.appendChild(customerCol)
             orderRow.appendChild(orderedToolsCol)
+            orderRow.appendChild(quantityCol)
             orderRow.appendChild(orderPriceCol)
 
             orderRow.appendChild(operationCol)

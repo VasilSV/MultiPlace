@@ -27,7 +27,7 @@ public class OrdersService {
     private final UserRepository userRepository;
     private final ToolEntityRepository toolEntityRepository;
     private final ToolEntityService toolEntityService;
-    private UserRoleRepository userRoleRepository;
+    private final UserRoleRepository userRoleRepository;
 
     public OrdersService(OrdersRepository ordersRepository,
                          UserRepository userRepository,
@@ -79,10 +79,6 @@ public Long createOrder(OrdersDTO ordersDTO, Authentication authentication) {
     }
 
 
-//        String customerEmail = ((UserEntity) authentication.getPrincipal()).getEmail();
-//        UserEntity customer = userRepository.findByEmail(customerEmail)
-//                .orElseThrow(() -> new IllegalArgumentException("Customer not found with email: " + customerEmail));
-
         String username = authentication.getName();
         UserEntity customer = userRepository.findByEmail(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found with username: " + username));
@@ -100,16 +96,7 @@ public Long createOrder(OrdersDTO ordersDTO, Authentication authentication) {
             throw new IllegalArgumentException("Not all roles were found");
         }
         customer.setRoles(roles);
-//        UserEntity customer = userRepository.findByEmail(ordersDTO.getCustomer().getEmail())
-//                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
-
-//        List<ToolEntity> orderedTools = toolEntityRepository
-//                .findToolEntitiesByToolName(String.valueOf(ordersDTO.getOrderedTools()));
-//        List<ToolEntity> orderedTools = toolEntityRepository
-//                .findByToolNameIn(Collections.singletonList(ordersDTO.getOrderedTools()
-//                        .stream().map(ToolDTO::getToolName)
-//                        .collect(Collectors.toList()).toString()));
     List<String> toolNames = ordersDTO.getOrderedTools()
             .stream()
             .map(ToolDTO::getToolName)
@@ -132,21 +119,4 @@ public Long createOrder(OrdersDTO ordersDTO, Authentication authentication) {
         return newOrder.getId();
     }
 
-//    public Long createOrder(OrdersDTO ordersDTO) {
-//
-//        Optional<UserEntity> customerOpt = userRepository
-//                .findByEmail(ordersDTO.getCustomer().getEmail());
-//        List<ToolEntity> toolsOpt = toolEntityRepository
-//                .findToolEntitiesByToolName(String.valueOf(ordersDTO.getOrderedTools()));
-//
-//        OrdersEntity newOrder = new OrdersEntity()
-//                .setOrderPrice(ordersDTO.getOrderPrice())
-//                .setOrderTime(LocalDateTime.now())
-//                .setOrderedTools(toolsOpt)
-//                .setCustomer(customerOpt);
-//
-//        newOrder = ordersRepository.save(newOrder);
-//
-//        return newOrder.getId();
-//    }
 }

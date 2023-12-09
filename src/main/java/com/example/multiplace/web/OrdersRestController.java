@@ -65,7 +65,7 @@ public class OrdersRestController {
     }
 
 @PostMapping
-public ResponseEntity<OrdersDTO> createOrder(
+public ResponseEntity<OrdersDTO> createOrders(
         @RequestBody OrdersDTO ordersDTO,
         UriComponentsBuilder uriComponentsBuilder) {
 
@@ -76,13 +76,14 @@ public ResponseEntity<OrdersDTO> createOrder(
     }
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+    String loggedInUsername = authentication.getName();
     Long newOrderID = ordersService.createOrder(ordersDTO, authentication);
     Optional<OrdersDTO> newOrderDTO = ordersService.findById(newOrderID);
 
     return newOrderDTO.map(order -> ResponseEntity.created(
             uriComponentsBuilder.path("/api/orders/{id}").buildAndExpand(newOrderID).toUri()
     ).body(order)).orElse(ResponseEntity.badRequest().build());
+
 }
 
     @ModelAttribute("ordersDTO")
