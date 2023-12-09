@@ -1,0 +1,46 @@
+package com.example.multiplace.interceptor;
+
+import com.example.multiplace.view.UserProfileView;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+
+import java.util.logging.Logger;
+
+@Component
+public class LoggingInterceptor implements HandlerInterceptor {
+
+    private static final Logger logger = Logger.getLogger(LoggingInterceptor.class.getName());
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        logger.info("Request URL: {}");
+        return true;
+    }
+
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        logger.info("Request completed");
+    }
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (modelAndView != null) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if (authentication != null && authentication.isAuthenticated()) {
+                Object principal = authentication.getPrincipal();
+                if (principal instanceof UserProfileView) {
+                    // Ако потребителят е инстанция на UserProfileView, добавете го към модела
+                    UserProfileView userProfileView = (UserProfileView) principal;
+                    modelAndView.addObject("userProfile", userProfileView);
+                }
+            }
+        }
+    }
+}
