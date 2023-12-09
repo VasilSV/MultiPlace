@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/head :: head}"></head>
-
-
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}">
@@ -64,19 +61,29 @@
                 <label for="password" class="text-white font-weight-bold">Password</label>
                 <input id="password"
                        name="password"
-                       type="password" min="2" max="20" class="form-control"
+                       type="password"
+                       min="2" max="20"
+                       class="form-control"
                        placeholder="Password"
-                       th:field="*{password}" th:errorclass="bg-danger"/>
-                <small class="text-danger" th:if="${#fields.hasErrors('password')}"
-                       th:errors="*{password}">Password error message</small>
+                       th:field="*{password}"
+                       th:errorclass="bg-danger"/>
+                <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+                    error message
+                </small>
             </div>
+        </div>
+
+        <div class="row">
             <div class="form-group col-md-6 mb-3">
-                <label for="confirmPassword" class="text-white font-weight-bold">ConfirmPassword</label>
+                <label for="confirmPassword" class="text-white font-weight-bold">Confirm Password</label>
                 <input id="confirmPassword"
                        name="confirmPassword"
-                       type="confirmPassword" min="2" max="20" class="form-control"
-                       placeholder="ConfirmPassword"
-                       th:field="*{confirmPassword}" th:errorclass="bg-danger"/>
+                       type="password"
+                       min="2" max="20"
+                       class="form-control"
+                       placeholder="Confirm Password"
+                       th:field="*{confirmPassword}"
+                       th:errorclass="bg-danger"/>
                 <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}"
                        th:errors="*{confirmPassword}">Password error message</small>
                 <p class="invalid-feedback errors alert alert-danger">
@@ -105,6 +112,6 @@
 <div>
     <footer></footer>
 </div>
-
+<script src="/js/validation.js"></script>
 </body>
 </html>

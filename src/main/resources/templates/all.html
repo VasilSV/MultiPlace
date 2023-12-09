@@ -41,7 +41,6 @@
                 </div>
             </div>
         </form>
-
         <form th:action="@{/api/orders}"
               th:method="post"
               class="coserAddForm">
@@ -54,8 +53,6 @@
                     <input th:type="number" th:min="0" class="form-control"
                            placeholder="Избери Количество"id="inputCoser" required>
                 </div>
-
-
                 <small class="text-danger"></small>
                 <button type="button" onclick="addCoserToOrder()"
                         class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
@@ -65,8 +62,6 @@
 
         </div>
         </form>
-
-
         <form th:action="@{/api/orders}"
               th:method="post"
               class="hammerAddForm">
@@ -79,15 +74,12 @@
                         <input th:type="number" th:min="0" class="form-control"
                                placeholder="Избери Количество"id="inputHammer" required>
                     </div>
-
-
                     <small class="text-danger"></small>
                     <button type="button" onclick="addHammerToOrder()"
                             class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
                     </button>
                     <a class="ml-md-5 text-danger" href="/product/hammer">Описание</a>
                 </div>
-
             </div>
         </form>
 
@@ -103,18 +95,14 @@
                         <input th:type="number" th:min="0" class="form-control"
                                placeholder="Избери Количество"id="inputMGHammer" required>
                     </div>
-
-
                     <small class="text-danger"></small>
                     <button type="button" onclick="addMGHammerToOrder()"
                             class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
                     </button>
                     <a class="ml-md-5 text-danger" href="/product/magnetic-hammer">Описание</a>
                 </div>
-
             </div>
         </form>
-
         <form th:action="@{/api/orders}"
               th:method="post"
               class="helmetAddForm">
@@ -125,20 +113,17 @@
                         <img class="mr-2" src="/images/hat.jpg" alt="Helmet" width="50px" height="50px">
                         <label for="inputHelmet">Име: <b>Строителна каска</b> Цена: 34 лв.</label>
                         <input th:type="number" th:min="0" class="form-control"
-                               placeholder="Избери Количество"id="inputHelmet" required>
+                               placeholder="Избери Количество"
+                               id="inputHelmet" required>
                     </div>
-
-
                     <small class="text-danger"></small>
                     <button type="button" onclick="addHelmetToOrder()"
                             class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
                     </button>
                     <a class="ml-md-5 text-danger" href="/product/helmet">Описание</a>
                 </div>
-
             </div>
         </form>
-
         <form th:action="@{/api/orders}"
               th:method="post"
               class="GlovesAddForm">
@@ -152,7 +137,6 @@
                                placeholder="Избери Количество"
                                id="inputGloves"  required>
                     </div>
-
                     <small class="text-danger"></small>
                     <button type="button" onclick="addGlovesToOrder()"
                             class="btn btn-warning mb-3r"><span>Дообавяне към заявката</span>
@@ -161,8 +145,11 @@
                 </div>
             </div>
         </form>
-
+<!--        href="/orders/by/all"-->
+<div>
         <a href="/orders/by/all" class="btn btn-danger" id="ordersSumBtn" th:text="|Списък със заявени продукти:  | "></a>
+    <div id="totalOrderPrice" class="text-center text-white"></div>
+</div>
     </div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
@@ -174,9 +161,55 @@
 <script src="/js/OrderingHelmet.js"></script>
 <script src="/js/OrderingMagneticHammer.js"></script>
 <script src="/js/BuyGloves.js"></script>
+<script src="/js/BuyHelmet.js"></script>
+<script src="/js/BuyMGHammer.js"></script>
+<script src="/js/BuyHammer.js"></script>
+<script src="/js/BuyCoser.js"></script>
+<script src="/js/BuyShovel.js"></script>
 <script>
     document.getElementById('ordersSumBtn').addEventListener('click', function () {
         buyGloves();
+    });
+</script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+        buyHelmet();
+    });
+</script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+        buyMGHammer();
+    });
+</script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+        buyShovel();
+    });
+</script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+        buyCoser();
+    });
+</script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+        buyHammer();
+    });
+</script>
+</script>
+<script>
+    function showTotalOrderPrice() {
+        var totalOrderPriceElement = document.getElementById('totalOrderPrice');
+        totalOrderPriceElement.textContent = 'Обща цена на поръчката: ' + totalOrderPrice.toFixed(2) + ' лв.';
+    }
+</script>
+<script>
+    document.getElementById('ordersSumBtn').addEventListener('click', function () {
+
+        var totalOrderPrice = parseFloat(document.getElementById('ordersSumBtn').dataset.totalOrderPrice) || 0;
+        if (totalOrderPrice > 0) {
+            window.location.href = 'http://localhost:8080/orders/by/all';
+        }
     });
 </script>
 </body>

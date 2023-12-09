@@ -27,7 +27,6 @@ toolUpdateButton.addEventListener('click', function () {
     };
 
 
-
     fetch('http://localhost:8080/api/tools', {
         method: 'POST',
         headers: {

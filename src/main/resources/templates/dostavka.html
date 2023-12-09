@@ -1,55 +1,42 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{fragments/head :: head}"></head>
-
-
+<head th:replace="~{fragments/head :: head}">
+    <script src="/js/SumorderFunctions.js"></script>
+</head>
 <body>
-
 <div th:replace="~{fragments/navbar :: navbar}">
     Navbar
 </div>
 <div class="container">
-    <div class="row bt-breadcrumb">
-        <ul class="breadcrumb">
-            <li><a href="https://sladaksun.com/">Начало</a></li>
-            <li><a href="https://sladaksun.com/dostavka">Доставка</a></li>
-        </ul>
-    </div>
     <div class="row">
         <div id="content" class="col-sm-12">
-
-            <ul style="display:none;">
-                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="https://sladaksun.com/" itemprop="url"><span itemprop="title">Начало</span></a>
-                </li>
-                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="https://sladaksun.com/dostavka" itemprop="url"><span itemprop="title">Доставка</span></a>
-                </li>
-            </ul>
-
+            <span th:text="${totalOrderPrices}"></span>
 
             <h1>Доставка</h1>
             <p></p>
             <p><b>Изпращане на поръчка</b></p>
-            <p>Вашата поръчка се счита за изпратена успешно, когато получите е-мейл със следното съдържание:&nbsp;</p>
             <p>Здравейте,&nbsp;</p>
             <p>Благодарим Ви за изпратената заявка&nbsp;</p>
-            <p>Вашата поръчка беше успешно приета под номер: .... , на дата: .... До 1 работен ден ще се свържем с Вас
+            <a  id="orderTime" th:text="|Вашата поръчка беше успешно приета под  на дата:  | "></a>
+            <p> До 1 работен ден ще се свържем с Вас
                 за да
                 потвърдите въведените данни за доставка.&nbsp;</p>
+
+            <div >
+            <span id="totalOrderPrice" class="text-white"></span>
+        </div>
+        <p><br></p>
+            <p>От екипа на Мултиплейс &nbsp;</p>
             <p><br></p>
-            <p>От екипа на Сладък &nbsp;Сън</p>
-            <p><br></p>
-            <p>В случай, че сте завършили успешно Вашата поръчка в уебсайта, а не сте получили потвърдителен е-майл,
+            <p>В случай, че сте завършили успешно Вашата поръчка в уебсайта, а не сте получили потвърждение,
                 моля да
-                се свържете с нас на телефон: 0878/ 621080, 052/ 501 501 или е-майл: sladyksyn@gmail.com</p>
+                се свържете с нас на телефон: 0878/ 621080, 052/ 501 501 или е-майл: multiplace@gmail.com</p>
             <p><br></p>
             <p><b>Обработка на поръчка</b></p>
-            <p>След като е изпратена успешно поръчката, в рамките на 1 работен ден екипът на Сладък Сън&nbsp; ще се
+            <p>След като е изпратена успешно поръчката, в рамките на 1 работен ден екипът на Мултиплейс &nbsp; ще се
                 свърже с
                 Вас за потвърждение.</p>
-            <p>Доставката е за сметка на клиента. При поръчки над 200 лв доставката е безплатна до офис на Еконт.</p>
+            <p>Доставката е за сметка на клиента. При поръчки над 1000 лв доставката е безплатна до офис на Еконт.</p>
             <p>Цената за доставка не е фиксирана. Изчислява се индивидулано на база теглото на пратката и населеното
                 място.</p>
             <p><br></p>
@@ -66,6 +53,19 @@
             <p></p>
             <p><strong><br></strong></p></div>
     </div>
+
 </div>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<script>
+    // Вземане на параметъра от URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var totalOrderPrice = urlParams.get('totalOrderPrice');
+
+    // Визуализиране на стойността
+    var totalOrderPriceElement = document.getElementById('totalOrderPrice');
+    totalOrderPriceElement.textContent = totalOrderPrice;
+</script>
+<script src="/js/SumOrders.js"></script>
+<script src="/js/OrderDateTime.js"></script>
 </body>
 </html>

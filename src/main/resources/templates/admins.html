@@ -11,13 +11,11 @@
     <div class="container">
         <h2 class="text-center text-white">Admin page</h2>
     </div>
-    <div class="col-md-666 ">
-        <img class="center" width="15%" src="/images/admin.jpg" alt="Admin image">
-    </div>
-
     <article class="functions">
+
         <th:block class="admin-block">
             <div class="container">
+                <img class="center" width="28%" src="/images/admin.jpg" alt="Admin image">
                 <h2 class="text-center text-white">CUSTOMERS DETAILS</h2>
             </div>
             <form
@@ -43,16 +41,10 @@
                 </div>
 
             </form>
-            <!--            <form th:method="get"-->
-            <!--                  th:action="@{/api/users}"-->
-            <!--                  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">-->
-            <!--                <div class="button-holder d-flex justify-content-center">-->
-            <!--                    <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE CUSTOMER DETAILS-->
-            <!--                    </button>-->
-
-            <!--                </div>-->
-            <!--            </form>-->
             <div class="container">
+                <img loading="lazy" class="wp-image-5352 alignright"
+                     src="https://himera.eu/wp-content/uploads/2018/08/top-5-kopirajting-printsipa-za-opisanie-na-produkti.jpg"
+                     alt="" width="300" height="169">
                 <h2 class="text-center text-white">PRODUCT DETAILS</h2>
             </div>
             <form
@@ -76,12 +68,9 @@
                     </section>
                 </div>
             </form>
-            <!--            <div class="button-holder d-flex justify-content-center">-->
-            <!--                <button type="submit" class="btn btn-warning  mb-3" value="Register">CHANGE PRODUCT DETAILS</button>-->
-            <!--            </div>-->
             <form th:action="@{/api/tools}" th:method="post" id="toolAddForm"
                   class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
-                <!-- other form fields here -->
+
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                 <div id="tool-update-container" class="button-holder d-flex justify-content-center">

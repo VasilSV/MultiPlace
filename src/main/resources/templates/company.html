@@ -1,30 +1,77 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head::head"></head>
-
-
 <body>
-
 <div th:replace="fragments/navbar :: navbar">
-  Navbar
+    Navbar
 </div>
-
 <div class="container">
-  <h2 class="text-center text-white">A page for companies</h2>
+    <h2 class="text-center text-white">A page for companies</h2>
 </div>
-<!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--  <ul class="navbar-nav mr-auto col-12 justify-content-between">-->
-<!--    <th:block th:if="${ ако е админ ...}" >-->
-<!--    <li class="nav-item">-->
-<!--      <div class="button-holder d-flex justify-content-center">-->
-<!--        <button type="submit" class="btn btn-warning  mb-3" value="Register"> CUSTOMER LIST</button>-->
-<!--      </div>-->
-<!--    </li>-->
-<!--    </th:block>-->
-<!--  </ul>-->
-<!--</div>-->
+<div class="text-center mt-3">
+    <img src="https://media.licdn.com/dms/image/C5612AQH00M_Sx4Ov7g/article-cover_image-shrink_423_752/0/1520042508496?e=1707350400&amp;v=beta&amp;t=9oYKs_F5iQ7FCrRQpfVmC59TUrMLlmCV8J_kXkn8wl0"
+         loading="lazy" id="ember26" class="reader-cover-image__img evi-image lazy-image ember-view">
+
+    <form th:action="@{/pages/company}"
+          th:method="post"
+          th:object="${userProfileView}"
+
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <input type="hidden" name="_csrf"
+               value="M7aCR6vk3odYT0WkxF5wHeEyLyI8Zz8GqvB9uHvT127oVKFpUdLjdc7c57B1K3HH9XNEK9hXAhoLBV0ryMUbjEnntgzQZ5hf">
+        <div class="button-holder d-flex justify-content-center">
+            <button id="customerDetails" type="button" class="btn btn-warning  mb-3" value="Register">PROFILE
+                INFORMATION
+            </button>
+            <section class="companyUser">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>User Details</th>
+                    </tr>
+                    </thead>
+                    <tbody id="profile-container">
+                    <tr>
+                        <td>Email:</td>
+                        <td th:text="${username}"></td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td th:text="${username}"></td>
+                    </tr>
+                    <tr>
+                        <td>ID:</td>
+                        <td th:text="${userProfileView.identificationNumber}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+    </form>
+
+    <form id="editForm" class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" th:if="${_csrf != null}"/>
+        <!-- ... -->
+        <label for="newIdentificationNumber">New Identification Number:</label>
+        <input type="text" id="newIdentificationNumber" name="newIdentificationNumber">
+
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword">
+
+        <button id="updateUserDetail" type="button" onclick="saveChanges()" class="btn btn-warning mb-3">Save Changes
+        </button>
+
+    </form>
+    <div class="buttons">
+        <button class="btn btn-outline-primary px-4" onclick="goToAllPages()">Back</button>
+    </div>
+
+</div>
 <div>
-  <footer></footer>
+    <footer></footer>
 </div>
+<script defer src="/js/UpdateUserDetails.js"></script>
+<script src="/js/GoBack.js"></script>
 </body>
 </html>
