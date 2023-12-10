@@ -49,7 +49,6 @@ public class OrdersServiceTest {
     @Test
     @DirtiesContext
     void testDeleteOrdersByID() {
-        // Предварително добавете поръчка в базата данни
 
         Long orderId = 1L;
         ordersService.deleteOrdersByID(orderId);
