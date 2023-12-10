@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (password !== confirmPassword) {
             confirmPasswordInput.setCustomValidity('Passwords do not match');
-            errorContainer.textContent = 'Passwords do not match'; // Показваме грешката в контейнера
+            errorContainer.textContent = 'Passwords do not match';
         } else {
             confirmPasswordInput.setCustomValidity('');
-            errorContainer.textContent = ''; // Изчистваме грешката при съвпадение на паролите
+            errorContainer.textContent = ''; // Изчистваме грешката
         }
     });
 });

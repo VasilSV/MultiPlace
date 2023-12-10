@@ -6,8 +6,8 @@ function buyGloves() {
     var priceLabel = document.querySelector("label[for='inputGloves']");
     var price = parseFloat(priceLabel.textContent.match(/\d+(\.\d+)?/)[0]);
 
-    var orderPrice = 3.0;  // Пример за стойност, трябва да се промени спрямо вашия код
-    var orderTime = new Date().toISOString();  // Пример за текущата дата и час
+    var orderPrice = 3.0;
+    var orderTime = new Date().toISOString();
     var customer = {loggedInUsername: "John Doe"};
     var quantityValue = quantity ? parseFloat(quantity) : 0;
     if (quantityValue !== 0) {

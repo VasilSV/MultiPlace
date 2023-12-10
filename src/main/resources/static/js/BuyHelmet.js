@@ -7,7 +7,7 @@ function buyHelmet() {
     var price = parseFloat(priceLabel.textContent.match(/\d+(\.\d+)?/)[0]);
     // var loggedInUsername = sessionStorage.getItem('loggedInUsername');
     var orderPrice = 34.0;
-    var orderTime = new Date().toISOString();  // Пример за текущата дата и час
+    var orderTime = new Date().toISOString();
     var customer = {loggedInUsername: 'John Doe'};
     var quantityValue = quantity ? parseFloat(quantity) : 0;
     // console.log('customer:', JSON.stringify(customer));

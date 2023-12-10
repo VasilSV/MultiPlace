@@ -12,7 +12,7 @@ function getLoggedInUsername() {
 
         const payload = JSON.parse(jsonPayload);
 
-        // Предполагаме, че в токена има информация за потребителя с ключ "sub" (променете го спрямо вашата конфигурация)
+
         const loggedInUsername = payload.sub;
 
         return loggedInUsername;

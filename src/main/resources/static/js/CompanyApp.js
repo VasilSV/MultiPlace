@@ -30,66 +30,6 @@ function customerDetails() {
     }
 }
 
-//
-//     fetch('http://localhost:8080/api/users')
-//         .then(response => response.json())
-//         .then(json => json.forEach(user => {
-//             if (loggedInUser && user.log() === loggedInUser.username) {
-//                 console.log(user)
-//                 let userRow = document.createElement("tr")
-//
-//                 let usernameCol = document.createElement("td")
-//                 let identificationNumberCol = document.createElement("td")
-//                 let emailCol = document.createElement("td")
-//                 let roleCol = document.createElement("td")
-//                 let operationCol = document.createElement('td')
-//
-//
-//                 usernameCol.textContent = user.username
-//                 identificationNumberCol.textContent = user.identificationNumber
-//                 emailCol.textContent = user.email
-//                 roleCol.textContent = user.role
-//
-//                 // let updateUserBtn = document.createElement('button')
-//                 // updateUserBtn.innerHTML = 'DELETE'
-//                 // updateUserBtn.dataset.id = user.id
-//                 //    updateUserBtn.addEventListener('click', updateBtnClicked)
-//
-//                 //   operationCol.appendChild(updateBtnClicked)
-//
-//
-//                 userRow.appendChild(usernameCol)
-//                 userRow.appendChild(identificationNumberCol)
-//                 userRow.appendChild(emailCol)
-//                 userRow.appendChild(roleCol)
-//                 userRow.appendChild(operationCol)
-//
-//                 profileContainer.append(userRow)
-//
-//             }
-//         }));
-// }
-
-// function updateBtnClicked(event) {
-//
-//     let userId = event.target.dataset.id;
-//     // Вземане на CSRF токена от мета тага
-//     let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-//
-//     let requestOptions = {
-//         method: "DELETE",
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'X-CSRF-TOKEN': csrfToken  // Поставяне на CSRF токена в хедъра
-//         }
-//  }
-//   fetch(`http://localhost:8080/api/users/${userId}`, requestOptions)
-//       .then(_ => customerDetails())
-//       .catch(error => console.log('error', error))
-
-//  }
-
-// Функция за логин, може да бъде асинхронна, ако използвате fetch към сървъра
 async function login(username, password) {
 
     try {

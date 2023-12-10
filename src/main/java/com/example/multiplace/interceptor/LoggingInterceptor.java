@@ -35,9 +35,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
             if (authentication != null && authentication.isAuthenticated()) {
                 Object principal = authentication.getPrincipal();
-                if (principal instanceof UserProfileView) {
-                    // Ако потребителят е инстанция на UserProfileView, добавете го към модела
-                    UserProfileView userProfileView = (UserProfileView) principal;
+                if (principal instanceof UserProfileView userProfileView) {
                     modelAndView.addObject("userProfile", userProfileView);
                 }
             }

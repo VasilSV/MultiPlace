@@ -5,8 +5,12 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/multiPlace?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8"
-    username: ${db_username}
-    password: ${db_password}
+
+    username: root
+    password: Vasilev
+
+#    username: ${db_username}
+#    password: ${db_password}
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:

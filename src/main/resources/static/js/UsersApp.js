@@ -55,7 +55,7 @@ function customerLoadList() {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken  // Поставяне на CSRF токена в хедъра
+                'X-CSRF-TOKEN': csrfToken
             }
         }
         fetch(`http://localhost:8080/api/users/${userId}`, requestOptions)

@@ -1,5 +1,5 @@
 
-var totalOrderPrice = 0; // Декларация на променлива за общата сума
+var totalOrderPrice = 0;
 
 function addGlovesToOrder() {
     var quantity = document.getElementById('inputGloves').value;

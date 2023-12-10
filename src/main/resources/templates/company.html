@@ -14,7 +14,7 @@
 
     <form th:action="@{/pages/company}"
           th:method="post"
-          th:object="${userProfileView}"
+          th:object="${userUpdateDTO}"
 
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <input type="hidden" name="_csrf"

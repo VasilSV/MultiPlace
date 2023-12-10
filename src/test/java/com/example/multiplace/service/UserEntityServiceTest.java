@@ -165,7 +165,7 @@ class UserEntityServiceTest {
     @Test
     void loadUserByUsername_WhenUserDoesNotExist_ShouldThrowException() {
         // Arrange
-        String email = "nonexistent@example.com";
+        String email = "az@example.com";
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         // Act & Assert

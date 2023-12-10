@@ -37,7 +37,6 @@ toolUpdateButton.addEventListener('click', function () {
     })
         .then(response => response.json())
         .then(newTool => {
-            // Обновяване на интерфейса
             console.log('New tool added:', newTool);
             // toolName.innerHTML = '';
             // toolDescriptionInput.value = '';
