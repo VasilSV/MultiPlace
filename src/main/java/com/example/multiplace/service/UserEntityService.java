@@ -8,6 +8,8 @@ import com.example.multiplace.model.entity.UserRoleEntity;
 import com.example.multiplace.model.enums.UserTypeEntity;
 import com.example.multiplace.repository.UserRepository;
 import com.example.multiplace.repository.UserRoleRepository;
+import com.example.multiplace.service.exception.EmailAlreadyExistsException;
+import com.example.multiplace.service.exception.IdentificationNumberAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,6 +47,15 @@ public class UserEntityService {
 
     public void registerUser(UserRegistrationDTO registrationDTO,
                              Consumer<Authentication> successfulLoginProcessor) {
+        if (userRepository.existsByEmail(registrationDTO.getEmail())) {
+            throw new EmailAlreadyExistsException("Email is already taken");
+        }
+
+        // Проверка за вече съществуващ идентификационен номер
+        if (userRepository.existsByIdentificationNumber(registrationDTO.getIdentificationNumber())) {
+            throw new IdentificationNumberAlreadyExistsException("Identification number is already taken");
+        }
+
 
         UserEntity userEntity = new UserEntity().
                 setUsername(registrationDTO.getUsername()).

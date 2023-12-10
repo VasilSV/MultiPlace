@@ -3,6 +3,8 @@ package com.example.multiplace.web;
 import com.example.multiplace.dtos.UserRegistrationDTO;
 import com.example.multiplace.service.UserEntityService;
 
+import com.example.multiplace.service.exception.EmailAlreadyExistsException;
+import com.example.multiplace.service.exception.IdentificationNumberAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -57,17 +59,33 @@ public class UserRegistrationController {
 
             return "redirect:/users/register";
         }
+        try {
+            userEntityService.registerUser(userRegistrationDTO, successfulAuth -> {
+                SecurityContextHolderStrategy strategy = SecurityContextHolder.getContextHolderStrategy();
 
-        userEntityService.registerUser(userRegistrationDTO, successfulAuth -> {
-            SecurityContextHolderStrategy strategy = SecurityContextHolder.getContextHolderStrategy();
+                SecurityContext context = strategy.createEmptyContext();
+                context.setAuthentication(successfulAuth);
 
-            SecurityContext context = strategy.createEmptyContext();
-            context.setAuthentication(successfulAuth);
+                strategy.setContext(context);
 
-            strategy.setContext(context);
+                securityContextRepository.saveContext(context, request, response);
+            });
+        } catch (EmailAlreadyExistsException e) {
 
-            securityContextRepository.saveContext(context, request, response);
-        });
+            bindingResult.rejectValue("email", "email.exists", e.getMessage());
+            redirectAttributes
+                    .addFlashAttribute("userRegistrationDTO", userRegistrationDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDTO", bindingResult);
+
+            return "redirect:/users/register";
+        } catch (IdentificationNumberAlreadyExistsException e) {
+            bindingResult.rejectValue("identificationNumber", "identificationNumber.exists", e.getMessage());
+            redirectAttributes
+                    .addFlashAttribute("userRegistrationDTO", userRegistrationDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDTO", bindingResult);
+
+            return "redirect:/users/register";
+        }
 
         return "redirect:/";
     }

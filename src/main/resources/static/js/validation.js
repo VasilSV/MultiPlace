@@ -1,7 +1,7 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     var passwordInput = document.getElementById('password');
     var confirmPasswordInput = document.getElementById('confirmPassword');
+    var errorContainer = document.getElementById('passwordError');
 
     confirmPasswordInput.addEventListener('input', function () {
         var password = passwordInput.value;
@@ -9,8 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (password !== confirmPassword) {
             confirmPasswordInput.setCustomValidity('Passwords do not match');
+            errorContainer.textContent = 'Passwords do not match'; // Показваме грешката в контейнера
         } else {
-            confirmPasswordInput.setCustomValidity('This Email is already used');
+            confirmPasswordInput.setCustomValidity('');
+            errorContainer.textContent = ''; // Изчистваме грешката при съвпадение на паролите
         }
     });
 });

@@ -84,9 +84,8 @@
                        placeholder="Confirm Password"
                        th:field="*{confirmPassword}"
                        th:errorclass="bg-danger"/>
-                <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}"
-                       th:errors="*{confirmPassword}">Password error message</small>
-                <p class="invalid-feedback errors alert alert-danger">
+                <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Password error message</small>
+                <p id="confirmPasswordError" class="invalid-feedback errors alert alert-danger">
                     Confirmation password is required.
                 </p>
             </div>
