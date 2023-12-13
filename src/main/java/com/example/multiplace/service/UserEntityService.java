@@ -51,7 +51,7 @@ public class UserEntityService {
             throw new EmailAlreadyExistsException("Email is already taken");
         }
 
-        // Проверка за вече съществуващ идентификационен номер
+
         if (userRepository.existsByIdentificationNumber(registrationDTO.getIdentificationNumber())) {
             throw new IdentificationNumberAlreadyExistsException("Identification number is already taken");
         }
