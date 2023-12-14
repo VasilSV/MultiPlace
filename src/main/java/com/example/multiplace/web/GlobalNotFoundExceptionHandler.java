@@ -11,7 +11,7 @@ public class GlobalNotFoundExceptionHandler {
 //@GetMapping("/notfound/{id}")
 //public String notFound(@PathVariable("id") String id){
 //    throw new ObjectNotFoundException( "aasdas" + id + "dasda");
-//}
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ObjectNotFoundException.class)
     public ModelAndView handleNotFound(ObjectNotFoundException exception) {
