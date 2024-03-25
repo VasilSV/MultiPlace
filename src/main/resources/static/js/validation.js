@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var passwordInput = document.getElementById('password');
     var confirmPasswordInput = document.getElementById('confirmPassword');
     var errorContainer = document.getElementById('passwordError');
+    //взимане на входящите данни
 
     confirmPasswordInput.addEventListener('input', function () {
         var password = passwordInput.value;
