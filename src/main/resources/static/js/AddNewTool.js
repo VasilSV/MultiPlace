@@ -8,11 +8,9 @@ toolUpdateButton.addEventListener('click', function () {
         console.error('Tool name is missing or empty.');
         return;
     }
-
     let toolDescriptionInput = document.getElementById('toolDescription');
     let toolPriceInput = document.getElementById('toolPrice');
     let csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-
 
     var toolName = toolNameInput.value;
     var toolDescription = toolDescriptionInput.value;
