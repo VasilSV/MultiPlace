@@ -13,10 +13,8 @@ public class ErrorConfig {
     public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
 
         SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
-
         Properties properties = new Properties();
         properties.setProperty(NoSuchElementException.class.getSimpleName(), "/error/error404");
-
         resolver.setExceptionMappings(properties);
 
         return resolver;
